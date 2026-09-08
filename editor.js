@@ -268,11 +268,12 @@ function drawChart() {
 
   if (state.showPenBands) {
     const bands = [
-      { threshold: 20, label: 'Class 6', color: '#3b82f6' },
-      { threshold: 30, label: 'Class 5', color: '#6366f1' },
-      { threshold: 40, label: 'Class 4', color: '#a855f7' },
-      { threshold: 50, label: 'Class 3', color: '#ec4899' },
-      { threshold: 60, label: 'Class 2', color: '#ef4444' },
+      { threshold: 10, label: 'Class I', color: '#64748b' },
+      { threshold: 20, label: 'Class II', color: '#3b82f6' },
+      { threshold: 30, label: 'Class III', color: '#6366f1' },
+      { threshold: 40, label: 'Class IV', color: '#a855f7' },
+      { threshold: 50, label: 'Class V', color: '#ec4899' },
+      { threshold: 60, label: 'Class VI', color: '#ef4444' },
     ];
     let lastY = yScale(0);
     if (!Number.isFinite(lastY)) lastY = height - MARGIN.bottom;
