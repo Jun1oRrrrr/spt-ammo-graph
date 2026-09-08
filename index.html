@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>SPT 弹药散点编辑器</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <h1>SPT 弹药散点编辑器</h1>
+    <div class="source-line" id="sourceLine">读取 SPT 数据库生成</div>
+  </div>
+  <div class="actions">
+    <button id="resetViewBtn" class="ghost" title="重置筛选与缩放">重置视图</button>
+    <button id="downloadPatchBtn" class="primary" title="下载当前拖动后的修改">下载补丁</button>
+  </div>
+</header>
+
+<main class="layout">
+  <aside class="panel sidebar">
+    <section class="panel-block">
+      <label class="field-label">口径</label>
+      <div class="search-wrap">
+        <input id="caliberSearch" type="search" placeholder="搜索口径" autocomplete="off">
+        <button id="clearCaliberBtn" class="icon-btn" type="button" title="清空">×</button>
+      </div>
+      <div id="caliberList" class="chip-list"></div>
+      <div class="chip-actions">
+        <button id="selectVisibleBtn" class="ghost small" type="button">仅当前可见</button>
+        <button id="selectAllCalibersBtn" class="ghost small" type="button">全选</button>
+      </div>
+    </section>
+
+    <section class="panel-block">
+      <label class="field-label" for="editMode">拖拽模式</label>
+      <div class="segmented" id="editMode">
+        <button type="button" data-mode="damage" class="active" title="横向拖拽修改伤害">威力</button>
+        <button type="button" data-mode="pen" title="纵向拖拽修改穿透">穿透</button>
+        <button type="button" data-mode="both" title="同时修改威力与穿透">双向</button>
+      </div>
+    </section>
+
+    <section class="panel-block">
+      <label class="field-label">显示</label>
+      <label class="check-row"><input id="onlyEdited" type="checkbox"> 只显示已修改</label>
+      <label class="check-row"><input id="logScale" type="checkbox"> 对数坐标</label>
+    </section>
+
+    <section class="panel-block">
+      <label class="field-label">状态</label>
+      <div id="statusBox" class="status-box">未修改</div>
+      <div class="hint">拖动散点修改数值；点击散点后可用方向键微调。</div>
+    </section>
+  </aside>
+
+  <section class="panel main-panel">
+    <div class="chart-toolbar">
+      <div>
+        <strong id="modeTitle">威力</strong>
+        <span class="muted" id="selectionInfo">未选中</span>
+      </div>
+      <div class="toolbar-right">
+        <span class="muted">按住点拖动修改</span>
+        <button id="clearEditsBtn" class="ghost small" type="button" title="清空页面中已做的修改">清除修改</button>
+        <button id="zoomResetBtn" class="ghost small" type="button" title="回到自动范围">缩放重置</button>
+      </div>
+    </div>
+    <div id="chartWrap" class="chart-wrap">
+      <svg id="chart" role="img" aria-label="弹药伤害与穿透散点图"></svg>
+      <div id="axisOverlay" class="axis-overlay"></div>
+      <div id="dragHint" class="drag-hint hidden"></div>
+      <div id="pointPanel" class="point-panel hidden"></div>
+    </div>
+    <div class="legend-row" id="legendRow"></div>
+    <div class="axis-panel">
+      <div class="axis-label" id="xAxisLabel">伤害（每发平均）</div>
+      <div class="axis-toggles">
+        <label><input type="checkbox" id="showGrid"> 网格</label>
+        <label><input type="checkbox" id="showPenBands" checked> 护甲等级参考</label>
+      </div>
+    </div>
+  </section>
+
+  <aside class="panel inspector">
+    <section class="panel-block">
+      <div class="inspector-title">
+        <label class="field-label" for="searchInput">搜索弹药</label>
+        <input id="searchInput" type="search" placeholder="名称 / tpl" autocomplete="off">
+      </div>
+      <div id="ammoList" class="ammo-list"></div>
+    </section>
+
+    <section class="panel-block detail-block" id="detailBlock">
+      <div id="detailEmpty" class="empty-detail">选择一个散点查看详情</div>
+      <div id="detailBody" class="hidden"></div>
+    </section>
+  </aside>
+</main>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="editor.js" defer></script>
+</body>
+</html>
