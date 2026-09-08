@@ -336,6 +336,7 @@ function drawChart() {
 
   document.getElementById('modeTitle').textContent = state.editMode === 'damage' ? '威力' : state.editMode === 'pen' ? '穿透' : '双向';
   document.getElementById('selectionInfo').textContent = selectedTpl ? `已选 ${editedName(selectedTpl)}` : '未选中';
+  renderPointPanel();
   updateLegend();
 }
 
@@ -398,6 +399,60 @@ function escapeHtml(s) {
   }[c]));
 }
 
+function currentTotalDamage(row) {
+  const edit = editedMap.get(row.tpl);
+  const value = edit && edit.damage !== undefined ? edit.damage : row.damage;
+  return Number(value);
+}
+
+function renderPointPanel() {
+  const panel = document.getElementById('pointPanel');
+  const row = DATA.rows.find((r) => r.tpl === selectedTpl);
+  if (!row) {
+    panel.classList.add('hidden');
+    panel.innerHTML = '';
+    return;
+  }
+  const edit = editedMap.get(row.tpl);
+  const d = effectiveDamage(row);
+  const p = effectivePenetration(row);
+  const editable = isEditable(row);
+  const color = edit ? '#fbbf24' : (colorScale[row.caliber] || '#888');
+  let statusClass = '';
+  let statusText = '';
+  if (edit) {
+    statusClass = 'edited';
+    statusText = '已修改';
+  } else if (!editable) {
+    statusClass = 'locked';
+    statusText = '锁定';
+  }
+  panel.innerHTML = `
+    <div class="pp-head">
+      <div class="pp-title">
+        <span class="pp-dot" style="background:${color}"></span>
+        <h3>${escapeHtml(rowName(row))}</h3>
+      </div>
+      <button class="close-pp" type="button" title="取消选择">×</button>
+    </div>
+    <div class="pp-meta">${escapeHtml(friendlyCaliber(row.caliber))} · ${escapeHtml(row.tpl)}</div>
+    <div class="pp-grid">
+      <div class="pp-stat${edit ? ' edited' : ''}">
+        <span>单发威力</span>
+        <b>${d.toFixed(1)}</b>
+        <em>总伤害 ${Math.round(currentTotalDamage(row))}</em>
+      </div>
+      <div class="pp-stat${edit ? ' edited' : ''}">
+        <span>穿透</span>
+        <b>${p.toFixed(1)}</b>
+        <em>${row.projectileCount} 弹片</em>
+      </div>
+    </div>
+    ${statusText ? `<div class="pp-foot"><span class="pp-tag ${statusClass}">${statusText}</span></div>` : ''}
+  `;
+  panel.classList.remove('hidden');
+}
+
 function renderInspector() {
   const row = DATA.rows.find((r) => r.tpl === selectedTpl);
   const block = document.getElementById('detailBlock');
@@ -418,7 +473,7 @@ function renderInspector() {
     <h3>${escapeHtml(rowName(row))}</h3>
     <div class="detail-meta">${escapeHtml(friendlyCaliber(row.caliber))} · ${row.tpl}</div>
     <dl class="kv-table">
-      <dt>总伤害</dt><dd><b>${Math.round(row.damage)}</b></dd>
+      <dt>总伤害</dt><dd><b>${Math.round(currentTotalDamage(row))}</b></dd>
       <dt>弹片数</dt><dd>${row.projectileCount}</dd>
       <dt>单发威力</dt><dd><b>${d.toFixed(1)}</b>${edit ? ' <span class="warn">已改</span>' : ''}</dd>
       <dt>穿透</dt><dd><b>${p.toFixed(1)}</b>${edit ? ' <span class="warn">已改</span>' : ''}</dd>
@@ -765,6 +820,11 @@ function setupEventListeners() {
       selectedTpl = target.dataset.tpl;
       renderAll();
     }
+  });
+  document.getElementById('pointPanel').addEventListener('click', (event) => {
+    if (!event.target.closest('.close-pp')) return;
+    selectedTpl = null;
+    renderAll();
   });
   window.addEventListener('resize', () => drawChart());
   window.addEventListener('keydown', keyboardSelect);
