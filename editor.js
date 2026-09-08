@@ -81,6 +81,7 @@ let state = {
   logScale: false,
   showGrid: true,
   showPenBands: true,
+  dragLock: false,
 };
 let ranges = { x: [0, 1], y: [0, 1] };
 let svg = null;
@@ -232,7 +233,7 @@ function drawChart() {
   const innerW = width - MARGIN.left - MARGIN.right;
   const innerH = height - MARGIN.top - MARGIN.bottom;
   const rows = filteredRows();
-  setRangeForRows(rows);
+  if (!state.dragLock) setRangeForRows(rows);
   const [minX, maxX] = ranges.x;
   const [minY, maxY] = ranges.y;
 
@@ -328,7 +329,7 @@ function drawChart() {
   };
   svg.__yScale = {
     fn: yScale,
-    invert: state.logScale ? invertLog(ranges.y, innerH, height - MARGIN.bottom) : invertLinear(ranges.y, innerH, height - MARGIN.bottom),
+    invert: state.logScale ? invertLog(ranges.y, innerH, height - MARGIN.bottom, true) : invertLinear(ranges.y, innerH, height - MARGIN.bottom, true),
   };
   svg.__rows = shownRows;
   svg.__innerW = innerW;
@@ -609,6 +610,7 @@ function onPointerDown(event) {
   }
   selectedTpl = row.tpl;
   if (isEditable(row)) {
+    state.dragLock = true;
     dragState = { row, startX: pt.mx, startY: pt.my };
     svg.classList.add('dragging');
     const hint = document.getElementById('dragHint');
@@ -639,15 +641,13 @@ function onPointerMove(event) {
   if (!inside) return;
   const x = svg.__xScale.invert(mx);
   const y = svg.__yScale.invert(my);
-  let newX = Number(row.damagePerProjectile);
-  let newY = Number(row.penetration);
-  newX = currentDamage(row);
-  newY = currentPenetration(row);
+  let newX = currentDamage(row);
+  let newY = currentPenetration(row);
   if (state.editMode === 'damage' || state.editMode === 'both') {
     newX = Math.max(1, x);
   }
   if (state.editMode === 'pen' || state.editMode === 'both') {
-    newY = Math.max(0, Math.min(60, Math.round(y)));
+    newY = Math.max(0, Math.min(60, y));
   }
   const changed = setEdit(row.tpl, { damagePerProjectile: newX, penetration: newY });
   if (changed) renderChartAndStatus();
@@ -655,6 +655,7 @@ function onPointerMove(event) {
 
 function onPointerUp() {
   if (dragState) {
+    state.dragLock = false;
     dragState = null;
     svg.classList.remove('dragging');
     document.getElementById('dragHint').classList.add('hidden');
@@ -662,16 +663,17 @@ function onPointerUp() {
   }
 }
 
-function invertLinear(range, innerLen, from) {
+// Y is drawn from the bottom up, so its inverse reads from bottom to top.
+function invertLinear(range, innerLen, from, reverse = false) {
   return (px) => {
-    const t = (px - from) / (innerLen || 1);
+    const t = (reverse ? from - px : px - from) / (innerLen || 1);
     return range[0] + t * (range[1] - range[0]);
   };
 }
 
-function invertLog(range, innerLen, from) {
+function invertLog(range, innerLen, from, reverse = false) {
   return (px) => {
-    const t = (px - from) / (innerLen || 1);
+    const t = (reverse ? from - px : px - from) / (innerLen || 1);
     const lo = Math.log10(Math.max(range[0], 0.1));
     const hi = Math.log10(Math.max(range[1], 1));
     return Math.pow(10, lo + t * (hi - lo));
@@ -874,4 +876,13 @@ async function loadData() {
 document.addEventListener('DOMContentLoaded', () => {
   svg = document.getElementById('chart');
   loadData();
+  let chartResizeTimer = 0;
+  const chartObserver = new ResizeObserver(() => {
+    if (chartResizeTimer) return;
+    chartResizeTimer = requestAnimationFrame(() => {
+      chartResizeTimer = 0;
+      drawChart();
+    });
+  });
+  chartObserver.observe(document.getElementById('chartWrap'));
 });
