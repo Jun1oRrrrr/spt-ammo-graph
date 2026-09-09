@@ -89,11 +89,12 @@ let svg = null;
 let colorScale = {};
 
 const MARGIN = { top: 24, right: 64, bottom: 52, left: 58 };
+const MAX_PEN = 120;
 
 function isEditable(row) {
   if (!row || !Number.isFinite(Number(row.damage)) || !Number.isFinite(Number(row.penetration))) return false;
   const p = Number(row.penetration);
-  if (p > 60) return false;
+  if (p > MAX_PEN) return false;
   if (Number(row.damagePerProjectile) < 1 || Number(row.projectileCount) > 15) return false;
   return true;
 }
@@ -547,7 +548,7 @@ function renderPointPanel() {
       <div class="pp-stat${edit ? ' edited' : ''}">
         <span>穿透</span>
         ${editable
-          ? `<input class="pp-input" type="number" data-edit-key="penetration" min="0" max="60" step="0.1" value="${p.toFixed(1)}">`
+          ? `<input class="pp-input" type="number" data-edit-key="penetration" min="0" max="${MAX_PEN}" step="0.1" value="${p.toFixed(1)}">`
           : `<b>${p.toFixed(1)}</b>`}
         <em>${row.projectileCount} 弹片</em>
       </div>
@@ -594,7 +595,7 @@ function renderInspector() {
         ? `<input class="detail-input" type="number" data-edit-key="damagePerProjectile" min="1" step="0.1" value="${d.toFixed(1)}">`
         : `<b>${d.toFixed(1)}</b>`}${edit ? ' <span class="warn">已改</span>' : ''}</dd>
       <dt>穿透</dt><dd>${editable
-        ? `<input class="detail-input" type="number" data-edit-key="penetration" min="0" max="60" step="0.1" value="${p.toFixed(1)}">`
+        ? `<input class="detail-input" type="number" data-edit-key="penetration" min="0" max="${MAX_PEN}" step="0.1" value="${p.toFixed(1)}">`
         : `<b>${p.toFixed(1)}</b>`}${edit ? ' <span class="warn">已改</span>' : ''}</dd>
       ${showOrig ? `
         <dt>原始总伤害</dt><dd class="muted">${Math.round(origTotal)}</dd>
@@ -659,7 +660,7 @@ function onNumericEditChange(event) {
   if (input.dataset.editKey === 'damagePerProjectile') {
     opts.damagePerProjectile = Math.max(1, next);
   } else if (input.dataset.editKey === 'penetration') {
-    opts.penetration = Math.max(0, Math.min(60, next));
+    opts.penetration = Math.max(0, Math.min(MAX_PEN, next));
   } else {
     return;
   }
@@ -825,7 +826,7 @@ function onPointerMove(event) {
     newX = Math.max(1, x);
   }
   if (state.editMode === 'pen' || state.editMode === 'both') {
-    newY = Math.max(0, Math.min(60, y));
+    newY = Math.max(0, Math.min(MAX_PEN, y));
   }
   const changed = setEdit(row.tpl, { damagePerProjectile: newX, penetration: newY });
   if (changed) renderChartAndStatus();
@@ -952,7 +953,7 @@ function keyboardSelect(event) {
     ? Number((curDamage + dx).toFixed(1))
     : curDamage;
   const nextPen = state.editMode === 'pen' || state.editMode === 'both'
-    ? Math.max(0, Math.min(60, curPen + dy))
+    ? Math.max(0, Math.min(MAX_PEN, curPen + dy))
     : curPen;
   setEdit(row.tpl, { damagePerProjectile: nextDamage, penetration: nextPen });
   renderAll();
