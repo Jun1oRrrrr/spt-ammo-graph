@@ -302,9 +302,12 @@ function drawChart() {
     const py = yScale(y);
     if (!Number.isFinite(px) || !Number.isFinite(py)) continue;
     const edited = !!edit;
-    const color = edited ? '#fbbf24' : (colorScale[r.caliber] || '#888');
+    const color = colorScale[r.caliber] || '#888';
     const selected = r.tpl === selectedTpl;
     const radius = edited ? 6.5 : selected ? 7.5 : 5;
+    if (edited) {
+      html += `<circle cx="${px}" cy="${py}" r="${radius + 2.4}" fill="none" stroke="#fbbf24" stroke-width="1.2" opacity="0.8"></circle>`;
+    }
     html += `<circle data-tpl="${r.tpl}" cx="${px}" cy="${py}" r="${radius}" fill="${color}" fill-opacity="${edited ? 0.9 : 0.75}" stroke="${selected ? '#ffffff' : color}" stroke-width="${selected ? 2 : 1.2}" data-edited="${edited ? '1' : '0'}"></circle>`;
   }
 
@@ -390,7 +393,7 @@ function renderList() {
     const d = effectiveDamage(r);
     const p = effectivePenetration(r);
     const edited = !!edit;
-    const color = edited ? '#fbbf24' : (colorScale[r.caliber] || '#888');
+    const color = colorScale[r.caliber] || '#888';
     return `<div class="ammo-row ${r.tpl === selectedTpl ? 'selected' : ''} ${edited ? 'edited' : ''}" data-tpl="${r.tpl}">
       <span class="row-color" style="background:${color}"></span>
       <span class="row-name">${escapeHtml(r.short)}</span>
@@ -423,7 +426,7 @@ function renderPointPanel() {
   const d = effectiveDamage(row);
   const p = effectivePenetration(row);
   const editable = isEditable(row);
-  const color = edit ? '#fbbf24' : (colorScale[row.caliber] || '#888');
+  const color = colorScale[row.caliber] || '#888';
   let statusClass = '';
   let statusText = '';
   if (edit) {
