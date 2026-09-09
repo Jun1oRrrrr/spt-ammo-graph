@@ -424,7 +424,7 @@ function drawChart() {
   svg.__innerW = innerW;
   svg.__innerH = innerH;
 
-  document.getElementById('modeTitle').textContent = state.editMode === 'damage' ? '威力' : state.editMode === 'pen' ? '穿透' : '双向';
+  document.getElementById('modeTitle').textContent = state.editMode === null ? '拖拽已关闭' : state.editMode === 'damage' ? '威力' : state.editMode === 'pen' ? '穿透' : '双向';
   document.getElementById('selectionInfo').textContent = selectedTpl ? `已选 ${editedName(selectedTpl)}` : '未选中';
   renderPointPanel();
   updateLegend();
@@ -787,7 +787,7 @@ function onPointerDown(event) {
     return;
   }
   selectedTpl = row.tpl;
-  if (isEditable(row)) {
+  if (isEditable(row) && state.editMode) {
     state.dragLock = true;
     dragState = { row, startX: pt.mx, startY: pt.my };
     svg.classList.add('dragging');
@@ -944,6 +944,7 @@ function keyboardSelect(event) {
   } else {
     return;
   }
+  if (!state.editMode) return;
   event.preventDefault();
   const curDamage = currentDamage(row);
   const curPen = currentPenetration(row);
@@ -974,8 +975,13 @@ function setupEventListeners() {
   document.getElementById('editMode').addEventListener('click', (event) => {
     const btn = event.target.closest('button');
     if (!btn) return;
-    state.editMode = btn.dataset.mode;
-    document.querySelectorAll('#editMode button').forEach((b) => b.classList.toggle('active', b === btn));
+    const mode = btn.dataset.mode;
+    state.editMode = state.editMode === mode ? null : mode;
+    document.querySelectorAll('#editMode button').forEach((b) => {
+      const active = b.dataset.mode === state.editMode;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-pressed', String(active));
+    });
     drawChart();
   });
 
