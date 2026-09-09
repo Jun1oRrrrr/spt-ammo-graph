@@ -365,6 +365,11 @@ function renderCaliberChips() {
   list.innerHTML = shown
     .map((c) => `<span class="chip ${currentCalibers.has(c) ? 'on' : ''}" data-caliber="${c}"><span class="dot" style="background:${colorScale[c] || '#667'}"></span>${friendlyCaliber(c)}<span class="count">${DATA.rows.filter((r) => r.caliber === c).length}</span></span>`)
     .join('');
+  const toggleBtn = document.getElementById('selectAllCalibersBtn');
+  const allOn = allCalibersSelected();
+  toggleBtn.classList.toggle('sel-active', allOn);
+  toggleBtn.setAttribute('aria-pressed', String(allOn));
+  toggleBtn.textContent = allOn ? '\u6e05\u7a7a' : '\u5168\u9009';
 }
 
 function renderList() {
@@ -440,16 +445,23 @@ function renderPointPanel() {
     <div class="pp-grid">
       <div class="pp-stat${edit ? ' edited' : ''}">
         <span>单发威力</span>
-        <b>${d.toFixed(1)}</b>
+        ${editable
+          ? `<input class="pp-input" type="number" data-edit-key="damagePerProjectile" min="1" step="0.1" value="${d.toFixed(1)}">`
+          : `<b>${d.toFixed(1)}</b>`}
         <em>总伤害 ${Math.round(currentTotalDamage(row))}</em>
       </div>
       <div class="pp-stat${edit ? ' edited' : ''}">
         <span>穿透</span>
-        <b>${p.toFixed(1)}</b>
+        ${editable
+          ? `<input class="pp-input" type="number" data-edit-key="penetration" min="0" max="60" step="0.1" value="${p.toFixed(1)}">`
+          : `<b>${p.toFixed(1)}</b>`}
         <em>${row.projectileCount} 弹片</em>
       </div>
     </div>
-    ${statusText ? `<div class="pp-foot"><span class="pp-tag ${statusClass}">${statusText}</span></div>` : ''}
+    <div class="pp-foot pp-actions">
+      ${statusText ? `<span class="pp-tag ${statusClass}">${statusText}</span>` : ''}
+      ${editable ? `<button type="button" class="ghost small" data-action="reset-point" ${edit ? '' : 'disabled'}>重置散点</button>` : ''}
+    </div>
   `;
   panel.classList.remove('hidden');
 }
@@ -476,10 +488,20 @@ function renderInspector() {
     <dl class="kv-table">
       <dt>总伤害</dt><dd><b>${Math.round(currentTotalDamage(row))}</b></dd>
       <dt>弹片数</dt><dd>${row.projectileCount}</dd>
-      <dt>单发威力</dt><dd><b>${d.toFixed(1)}</b>${edit ? ' <span class="warn">已改</span>' : ''}</dd>
-      <dt>穿透</dt><dd><b>${p.toFixed(1)}</b>${edit ? ' <span class="warn">已改</span>' : ''}</dd>
+      <dt>单发威力</dt><dd>${editable
+        ? `<input class="detail-input" type="number" data-edit-key="damagePerProjectile" min="1" step="0.1" value="${d.toFixed(1)}">`
+        : `<b>${d.toFixed(1)}</b>`}${edit ? ' <span class="warn">已改</span>' : ''}</dd>
+      <dt>穿透</dt><dd>${editable
+        ? `<input class="detail-input" type="number" data-edit-key="penetration" min="0" max="60" step="0.1" value="${p.toFixed(1)}">`
+        : `<b>${p.toFixed(1)}</b>`}${edit ? ' <span class="warn">已改</span>' : ''}</dd>
       ${editable ? '<dt>拖拽</dt><dd>可编辑</dd>' : '<dt>拖拽</dt><dd class="warn">锁定</dd>'}
-    </dl>`;
+    </dl>
+    ${editable ? `
+      <div class="detail-actions">
+        <button type="button" class="ghost small" data-action="reset-point" ${edit ? '' : 'disabled'}>重置散点</button>
+      </div>
+    ` : ''}
+  `;
 }
 
 function renderStatus() {
@@ -513,6 +535,54 @@ function showToast(message, ms = 2600) {
   toast.classList.remove('hidden');
   clearTimeout(toast.__timer);
   toast.__timer = setTimeout(() => toast.classList.add('hidden'), ms);
+}
+
+function onNumericEditChange(event) {
+  const input = event.target.closest('[data-edit-key]');
+  if (!input || !selectedTpl) return;
+  const row = DATA.rows.find((r) => r.tpl === selectedTpl);
+  if (!row || !isEditable(row)) return;
+  const raw = String(input.value).trim();
+  const next = Number(raw);
+  if (!Number.isFinite(next) || raw === '') {
+    renderAll();
+    return;
+  }
+  const opts = {};
+  if (input.dataset.editKey === 'damagePerProjectile') {
+    opts.damagePerProjectile = Math.max(1, next);
+  } else if (input.dataset.editKey === 'penetration') {
+    opts.penetration = Math.max(0, Math.min(60, next));
+  } else {
+    return;
+  }
+  const prevD = effectiveDamage(row);
+  const prevP = effectivePenetration(row);
+  setEdit(selectedTpl, opts);
+  renderAll();
+  const nextD = effectiveDamage(row);
+  const nextP = effectivePenetration(row);
+  if (nextD !== prevD || nextP !== prevP) {
+    showToast(`${row.short}：${nextD.toFixed(1)} / ${nextP.toFixed(1)}`);
+  }
+}
+
+function onNumericEditKeydown(event) {
+  const input = event.target.closest('[data-edit-key]');
+  if (!input || event.key !== 'Enter') return;
+  event.preventDefault();
+  input.blur();
+}
+
+function onEditPanelClick(event) {
+  const btn = event.target.closest('[data-action="reset-point"]');
+  if (!btn || !selectedTpl) return;
+  const row = DATA.rows.find((r) => r.tpl === selectedTpl);
+  if (!row) return;
+  if (!editedMap.has(selectedTpl)) return;
+  editedMap.delete(selectedTpl);
+  renderAll();
+  showToast(`${row.short} 已恢复原始数据`);
 }
 
 function setEdit(tpl, opts) {
@@ -692,8 +762,12 @@ function selectVisible() {
 }
 
 function selectAllCalibers() {
-  currentCalibers = new Set(allCalibers);
+  currentCalibers = allCalibersSelected() ? new Set() : new Set(allCalibers);
   renderAll();
+}
+
+function allCalibersSelected() {
+  return allCalibers.length > 0 && currentCalibers.size === allCalibers.length;
 }
 
 function toggleCaliber(c) {
@@ -744,6 +818,7 @@ function currentRowForZoom() {
 }
 
 function keyboardSelect(event) {
+  if (event.target && event.target.closest && event.target.closest('input, textarea, select')) return;
   const row = DATA.rows.find((r) => r.tpl === selectedTpl);
   if (!row || !isEditable(row)) return;
   const step = event.shiftKey ? 5 : 1;
@@ -849,12 +924,20 @@ function setupEventListeners() {
     searchTerm = '';
     selectedTpl = null;
     document.getElementById('searchInput').value = '';
-    selectAllCalibers();
+    currentCalibers = new Set(allCalibers);
+    renderAll();
   });
   document.getElementById('zoomResetBtn').addEventListener('click', () => {
     setRangeForRows(filteredRows());
     drawChart();
   });
+  const editPanel = document.getElementById('pointPanel');
+  const detailPanel = document.getElementById('detailBody');
+  for (const panel of [editPanel, detailPanel]) {
+    panel.addEventListener('change', onNumericEditChange);
+    panel.addEventListener('keydown', onNumericEditKeydown);
+    panel.addEventListener('click', onEditPanelClick);
+  }
 }
 
 async function loadData() {

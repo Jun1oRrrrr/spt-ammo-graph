@@ -99,6 +99,12 @@ button.ghost {
   border-color: var(--line);
 }
 
+button.sel-active {
+  background: #22384a;
+  border-color: #3c5a77;
+  color: var(--accent);
+}
+
 button.primary {
   background: #1d4ed8;
   border-color: #1d4ed8;
@@ -480,6 +486,29 @@ input:focus {
   color: var(--amber);
 }
 
+.point-panel input,
+.point-panel button {
+  pointer-events: auto;
+}
+
+.pp-input {
+  width: 100%;
+  min-width: 0;
+  padding: 4px 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  text-align: right;
+}
+
+.pp-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .pp-foot {
   margin-top: 8px;
 }
@@ -643,6 +672,20 @@ input:focus {
 
 .kv-table .warn {
   color: var(--amber);
+}
+
+.detail-input {
+  width: 120px;
+  max-width: 100%;
+  padding: 4px 6px;
+  color: var(--accent);
+  text-align: right;
+}
+
+.detail-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
 }
 
 .toast {
