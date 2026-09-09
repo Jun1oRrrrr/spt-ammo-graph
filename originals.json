@@ -1,7 +1,7 @@
 {
-  "source": "SPT database baseline 2026-09-07",
-  "generated": "2026-09-09T07:40:52.988Z",
-  "count": 19,
+  "source": "SPT ammo graph original values",
+  "generated": "2026-09-09T10:48:29.377Z",
+  "count": 42,
   "values": {
     "5656d7c34bdc2d9d198b4587": {
       "name": "patron_762x39_PS",
@@ -116,6 +116,167 @@
       "damage": 58,
       "damagePerProjectile": 58,
       "penetration": 33
+    },
+    "56dfef82d2720bbd668b4567": {
+      "tpl": "56dfef82d2720bbd668b4567",
+      "name": "patron_545x39_BP",
+      "damage": 48,
+      "damagePerProjectile": 48,
+      "penetration": 47
+    },
+    "56dff026d2720bb8668b4567": {
+      "tpl": "56dff026d2720bb8668b4567",
+      "name": "patron_545x39_BS",
+      "damage": 45,
+      "damagePerProjectile": 45,
+      "penetration": 52
+    },
+    "56dff061d2720bb5668b4567": {
+      "tpl": "56dff061d2720bb5668b4567",
+      "name": "patron_545x39_BT",
+      "damage": 54,
+      "damagePerProjectile": 54,
+      "penetration": 45
+    },
+    "56dff0bed2720bb0668b4567": {
+      "tpl": "56dff0bed2720bb0668b4567",
+      "name": "patron_545x39_FMJ",
+      "damage": 55,
+      "damagePerProjectile": 55,
+      "penetration": 22
+    },
+    "56dff216d2720bbd668b4568": {
+      "tpl": "56dff216d2720bbd668b4568",
+      "name": "patron_545x39_HP",
+      "damage": 76,
+      "damagePerProjectile": 76,
+      "penetration": 20
+    },
+    "56dff2ced2720bb4668b4567": {
+      "tpl": "56dff2ced2720bb4668b4567",
+      "name": "patron_545x39_PP",
+      "damage": 51,
+      "damagePerProjectile": 51,
+      "penetration": 43
+    },
+    "56dff338d2720bbd668b4569": {
+      "tpl": "56dff338d2720bbd668b4569",
+      "name": "patron_545x39_PRS",
+      "damage": 70,
+      "damagePerProjectile": 70,
+      "penetration": 17
+    },
+    "56dff3afd2720bba668b4567": {
+      "tpl": "56dff3afd2720bba668b4567",
+      "name": "patron_545x39_PS",
+      "damage": 56,
+      "damagePerProjectile": 56,
+      "penetration": 37
+    },
+    "56dff421d2720b5f5a8b4567": {
+      "tpl": "56dff421d2720b5f5a8b4567",
+      "name": "patron_545x39_SP",
+      "damage": 67,
+      "damagePerProjectile": 67,
+      "penetration": 21
+    },
+    "56dff4a2d2720bbd668b456a": {
+      "tpl": "56dff4a2d2720bbd668b456a",
+      "name": "patron_545x39_T",
+      "damage": 59,
+      "damagePerProjectile": 59,
+      "penetration": 21
+    },
+    "56dff4ecd2720b5f5a8b4568": {
+      "tpl": "56dff4ecd2720b5f5a8b4568",
+      "name": "patron_545x39_US",
+      "damage": 65,
+      "damagePerProjectile": 65,
+      "penetration": 14
+    },
+    "5c0d5e4486f77478390952fe": {
+      "tpl": "5c0d5e4486f77478390952fe",
+      "name": "patron_545x39_7n39",
+      "damage": 37,
+      "damagePerProjectile": 37,
+      "penetration": 60
+    },
+    "61962b617c6c7b169525f168": {
+      "tpl": "61962b617c6c7b169525f168",
+      "name": "patron_545x39_7n40",
+      "damage": 55,
+      "damagePerProjectile": 55,
+      "penetration": 48
+    },
+    "54527a984bdc2d4e668b4567": {
+      "tpl": "54527a984bdc2d4e668b4567",
+      "name": "patron_556x45_M855",
+      "damage": 54,
+      "damagePerProjectile": 54,
+      "penetration": 40
+    },
+    "54527ac44bdc2d36668b4567": {
+      "tpl": "54527ac44bdc2d36668b4567",
+      "name": "patron_556x45_M855A1",
+      "damage": 49,
+      "damagePerProjectile": 49,
+      "penetration": 46
+    },
+    "59e690b686f7746c9f75e848": {
+      "tpl": "59e690b686f7746c9f75e848",
+      "name": "patron_556x45_M995",
+      "damage": 42,
+      "damagePerProjectile": 42,
+      "penetration": 55
+    },
+    "59e6906286f7746c9f75e847": {
+      "tpl": "59e6906286f7746c9f75e847",
+      "name": "patron_556x45_M856A1",
+      "damage": 52,
+      "damagePerProjectile": 52,
+      "penetration": 34
+    },
+    "59e68f6f86f7746c9f75e846": {
+      "tpl": "59e68f6f86f7746c9f75e846",
+      "name": "patron_556x45_M856",
+      "damage": 60,
+      "damagePerProjectile": 60,
+      "penetration": 25
+    },
+    "59e6920f86f77411d82aa167": {
+      "tpl": "59e6920f86f77411d82aa167",
+      "name": "patron_556x45_55_FMJ",
+      "damage": 57,
+      "damagePerProjectile": 57,
+      "penetration": 28
+    },
+    "60194943740c5d77f6705eea": {
+      "tpl": "60194943740c5d77f6705eea",
+      "name": "patron_556x45_mk_318_mod_0",
+      "damage": 53,
+      "damagePerProjectile": 53,
+      "penetration": 33
+    },
+    "5c0d5ae286f7741e46554302": {
+      "tpl": "5c0d5ae286f7741e46554302",
+      "name": "patron_556x45_varmageddon",
+      "damage": 88,
+      "damagePerProjectile": 88,
+      "penetration": 26
+    },
+    "59e6918f86f7746c9f75e849": {
+      "tpl": "59e6918f86f7746c9f75e849",
+      "name": "patron_556x45_MK_255_Mod_0",
+      "damage": 72,
+      "damagePerProjectile": 72,
+      "penetration": 18
+    },
+    "59e6927d86f77411da468256": {
+      "tpl": "59e6927d86f77411da468256",
+      "name": "patron_556x45_55_HP",
+      "damage": 79,
+      "damagePerProjectile": 79,
+      "penetration": 21
     }
   }
 }

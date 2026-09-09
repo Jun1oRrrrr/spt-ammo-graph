@@ -45,6 +45,15 @@
     </section>
 
     <section class="panel-block">
+      <label class="field-label" for="realismMode">Realism 映射</label>
+      <div class="segmented" id="realismMode" aria-label="Realism 映射模式">
+        <button type="button" data-realism="off" class="active" aria-pressed="true">关闭</button>
+        <button type="button" data-realism="caliber" title="每个口径内部做区间映射">按口径映射</button>
+        <button type="button" data-realism="global" title="全部可见弹药共享区间">全局映射</button>
+      </div>
+    </section>
+
+    <section class="panel-block">
       <label class="field-label">显示</label>
       <label class="check-row"><input id="onlyEdited" type="checkbox"> 只显示已修改</label>
       <label class="check-row"><input id="logScale" type="checkbox"> 对数坐标</label>
