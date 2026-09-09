@@ -72,6 +72,7 @@ let DATA = { rows: [], source: '' };
 let currentCalibers = new Set();
 let allCalibers = [];
 let editedMap = new Map();
+let originalMap = new Map();
 let searchTerm = '';
 let selectedTpl = null;
 let dragState = null;
@@ -133,6 +134,91 @@ function rowName(row) {
   const edit = editedMap.get(row.tpl);
   if (!edit) return row.name;
   return edit.name || row.name;
+}
+
+function originalValuesFor(row) {
+  const stored = originalMap.get(row.tpl);
+  if (stored && Number.isFinite(Number(stored.damagePerProjectile)) && Number.isFinite(Number(stored.penetration))) {
+    const total = Number.isFinite(Number(stored.damage)) ? Number(stored.damage) : Number(stored.damagePerProjectile) * (Number(row.projectileCount) || 1);
+    return {
+      damage: total,
+      damagePerProjectile: Number(stored.damagePerProjectile),
+      penetration: Number(stored.penetration),
+    };
+  }
+  return {
+    damage: Number(row.damage),
+    damagePerProjectile: Number(row.damagePerProjectile),
+    penetration: Number(row.penetration),
+  };
+}
+
+function originalDiffers(row) {
+  const stored = originalMap.get(row.tpl);
+  if (!stored || !row) return false;
+  return Math.abs(Number(stored.damagePerProjectile) - Number(row.damagePerProjectile)) > 1e-6
+    || Math.abs(Number(stored.penetration) - Number(row.penetration)) > 1e-6;
+}
+
+function readStoredOriginals() {
+  try {
+    const raw = localStorage.getItem('ammo_orig_map_v1');
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') return [];
+    return Object.entries(parsed)
+      .filter(([, o]) => o && Number.isFinite(Number(o.damagePerProjectile)) && Number.isFinite(Number(o.penetration)))
+      .map(([tpl, o]) => [tpl, o]);
+  } catch (err) {
+    console.warn('stored originals not loaded', err);
+    return [];
+  }
+}
+
+function writeStoredOriginals() {
+  try {
+    localStorage.setItem('ammo_orig_map_v1', JSON.stringify(Object.fromEntries(originalMap)));
+  } catch (err) {
+    console.warn('originals not stored', err);
+  }
+}
+
+function rememberOriginal(row) {
+  if (!row || originalMap.has(row.tpl)) return;
+  originalMap.set(row.tpl, {
+    damage: Number(row.damage),
+    damagePerProjectile: Number(row.damagePerProjectile),
+    penetration: Number(row.penetration),
+  });
+  writeStoredOriginals();
+}
+
+async function loadOriginals(force = false) {
+  const stored = readStoredOriginals();
+  originalMap = new Map(stored);
+  try {
+    const response = await fetch(`originals.json${force ? `?t=${Date.now()}` : ''}`);
+    if (!response.ok) return;
+    const payload = await response.json();
+    const seed = payload && payload.values;
+    if (!seed || typeof seed !== 'object') return;
+    const seedTpls = new Set(Object.keys(seed));
+    originalMap = new Map();
+    for (const [tpl, entry] of Object.entries(seed)) {
+      if (!entry || !Number.isFinite(Number(entry.damagePerProjectile)) || !Number.isFinite(Number(entry.penetration))) continue;
+      originalMap.set(tpl, {
+        damage: Number(entry.damage),
+        damagePerProjectile: Number(entry.damagePerProjectile),
+        penetration: Number(entry.penetration),
+      });
+    }
+    for (const [tpl, entry] of stored) {
+      if (!seedTpls.has(tpl)) originalMap.set(tpl, entry);
+    }
+    writeStoredOriginals();
+  } catch (err) {
+    console.warn('originals snapshot not loaded', err);
+  }
 }
 
 function buildData() {
@@ -427,6 +513,11 @@ function renderPointPanel() {
   const p = effectivePenetration(row);
   const editable = isEditable(row);
   const color = colorScale[row.caliber] || '#888';
+  const orig = originalValuesFor(row);
+  const origDamage = Number(orig.damagePerProjectile);
+  const origPen = Number(orig.penetration);
+  const origTotal = Number(orig.damage);
+  const showOrig = !!edit || originalDiffers(row);
   let statusClass = '';
   let statusText = '';
   if (edit) {
@@ -461,9 +552,12 @@ function renderPointPanel() {
         <em>${row.projectileCount} 弹片</em>
       </div>
     </div>
-    <div class="pp-foot pp-actions">
-      ${statusText ? `<span class="pp-tag ${statusClass}">${statusText}</span>` : ''}
-      ${editable ? `<button type="button" class="ghost small" data-action="reset-point" ${edit ? '' : 'disabled'}>重置散点</button>` : ''}
+    <div class="pp-foot">
+      <div class="pp-actions">
+        ${statusText ? `<span class="pp-tag ${statusClass}">${statusText}</span>` : ''}
+        ${editable ? `<button type="button" class="ghost small" data-action="reset-point" ${edit ? '' : 'disabled'}>重置散点</button>` : ''}
+      </div>
+      ${showOrig ? `<div class="pp-orig muted">原始值：总伤害 ${Math.round(origTotal)} · 单发威力 ${origDamage.toFixed(1)} · 穿透 ${origPen.toFixed(1)}</div>` : ''}
     </div>
   `;
   panel.classList.remove('hidden');
@@ -485,6 +579,11 @@ function renderInspector() {
   const d = effectiveDamage(row);
   const p = effectivePenetration(row);
   const editable = isEditable(row);
+  const orig = originalValuesFor(row);
+  const origDamage = Number(orig.damagePerProjectile);
+  const origPen = Number(orig.penetration);
+  const origTotal = Number(orig.damage);
+  const showOrig = !!edit || originalDiffers(row);
   body.innerHTML = `
     <h3>${escapeHtml(rowName(row))}</h3>
     <div class="detail-meta">${escapeHtml(friendlyCaliber(row.caliber))} · ${row.tpl}</div>
@@ -497,6 +596,11 @@ function renderInspector() {
       <dt>穿透</dt><dd>${editable
         ? `<input class="detail-input" type="number" data-edit-key="penetration" min="0" max="60" step="0.1" value="${p.toFixed(1)}">`
         : `<b>${p.toFixed(1)}</b>`}${edit ? ' <span class="warn">已改</span>' : ''}</dd>
+      ${showOrig ? `
+        <dt>原始总伤害</dt><dd class="muted">${Math.round(origTotal)}</dd>
+        <dt>原始单发威力</dt><dd class="muted">${origDamage.toFixed(1)}</dd>
+        <dt>原始穿透</dt><dd class="muted">${origPen.toFixed(1)}</dd>
+      ` : ''}
       ${editable ? '<dt>拖拽</dt><dd>可编辑</dd>' : '<dt>拖拽</dt><dd class="warn">锁定</dd>'}
     </dl>
     ${editable ? `
@@ -591,6 +695,7 @@ function onEditPanelClick(event) {
 function setEdit(tpl, opts) {
   const row = DATA.rows.find((r) => r.tpl === tpl);
   if (!row || !isEditable(row)) return false;
+  rememberOriginal(row);
   const edit = editedMap.get(tpl) || {};
   const origDamage = Number(row.damagePerProjectile);
   const origPen = Number(row.penetration);
@@ -954,6 +1059,7 @@ async function loadData() {
   }
   const sourceLine = document.getElementById('sourceLine');
   sourceLine.textContent = `${DATA.source || ''} · ${DATA.count || 0} 种弹药 · ${new Date(DATA.generated || Date.now()).toLocaleString()}`;
+  await loadOriginals();
   buildData();
   setupEventListeners();
   renderAll();

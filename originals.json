@@ -1,0 +1,121 @@
+{
+  "source": "SPT database baseline 2026-09-07",
+  "generated": "2026-09-09T07:40:52.988Z",
+  "count": 19,
+  "values": {
+    "5656d7c34bdc2d9d198b4587": {
+      "name": "patron_762x39_PS",
+      "damage": 61,
+      "damagePerProjectile": 61,
+      "penetration": 35
+    },
+    "59e0d99486f7744a32234762": {
+      "name": "patron_762x39_BP",
+      "damage": 58,
+      "damagePerProjectile": 58,
+      "penetration": 46
+    },
+    "59e4cf5286f7741778269d8a": {
+      "name": "patron_762x39_T45M",
+      "damage": 65,
+      "damagePerProjectile": 65,
+      "penetration": 26
+    },
+    "59e4d24686f7741776641ac7": {
+      "name": "patron_762x39_US",
+      "damage": 56,
+      "damagePerProjectile": 56,
+      "penetration": 18
+    },
+    "59e4d3d286f774176a36250a": {
+      "name": "patron_762x39_HP",
+      "damage": 80,
+      "damagePerProjectile": 80,
+      "penetration": 24
+    },
+    "59e6542b86f77411dc52a77a": {
+      "name": "patron_366_TKM_FMJ",
+      "damage": 98,
+      "damagePerProjectile": 98,
+      "penetration": 21
+    },
+    "59e655cb86f77411dc52a77b": {
+      "name": "patron_366_TKM_EKO",
+      "damage": 73,
+      "damagePerProjectile": 73,
+      "penetration": 28
+    },
+    "59e6658b86f77411d949b250": {
+      "name": "patron_366_TKM_Geksa",
+      "damage": 110,
+      "damagePerProjectile": 110,
+      "penetration": 19
+    },
+    "5f0596629e22f464da6bbdd9": {
+      "name": "patron_366_custom_ap",
+      "damage": 90,
+      "damagePerProjectile": 90,
+      "penetration": 30
+    },
+    "5fbe3ffdf8b6a877a729ea82": {
+      "name": "patron_762x35_blackout",
+      "damage": 60,
+      "damagePerProjectile": 60,
+      "penetration": 20
+    },
+    "5fd20ff893a8961fc660a954": {
+      "name": "patron_762x35_blackout_ap",
+      "damage": 51,
+      "damagePerProjectile": 51,
+      "penetration": 30
+    },
+    "601aa3d2b2bcb34913271e6d": {
+      "name": "patron_762x39_mai_ap",
+      "damage": 53,
+      "damagePerProjectile": 53,
+      "penetration": 58
+    },
+    "6196364158ef8c428c287d9f": {
+      "name": "patron_762x35_vmax",
+      "damage": 72,
+      "damagePerProjectile": 72,
+      "penetration": 19
+    },
+    "6196365d58ef8c428c287da1": {
+      "name": "patron_762x35_whisper",
+      "damage": 62,
+      "damagePerProjectile": 62,
+      "penetration": 15
+    },
+    "619636be6db0f2477964e710": {
+      "name": "patron_762x35_m62",
+      "damage": 54,
+      "damagePerProjectile": 54,
+      "penetration": 22
+    },
+    "64b7af434b75259c590fa893": {
+      "name": "patron_762x39_pp",
+      "damage": 59,
+      "damagePerProjectile": 59,
+      "penetration": 38
+    },
+    "64b7af5a8532cf95ee0a0dbd": {
+      "name": "patron_762x39_fmj",
+      "damage": 63,
+      "damagePerProjectile": 63,
+      "penetration": 28
+    },
+    "64b7af734b75259c590fa895": {
+      "name": "patron_762x39_sp",
+      "damage": 68,
+      "damagePerProjectile": 68,
+      "penetration": 26
+    },
+    "64b8725c4b75259c590fa899": {
+      "name": "patron_762x35_cbj",
+      "damage": 58,
+      "damagePerProjectile": 58,
+      "penetration": 33
+    }
+  }
+}

@@ -368,9 +368,10 @@ input:focus {
 
 .point-panel {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  width: min(330px, calc(100% - 24px));
+  top: 50%;
+  left: calc(50% + 8px);
+  width: min(330px, calc(50% - 16px));
+  transform: translateY(-50%);
   background: rgba(13, 17, 23, 0.96);
   border: 1px solid #3c5168;
   border-left: 3px solid var(--accent);
@@ -511,6 +512,14 @@ input:focus {
 
 .pp-foot {
   margin-top: 8px;
+}
+
+.pp-orig {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  color: var(--muted);
 }
 
 .pp-tag {
