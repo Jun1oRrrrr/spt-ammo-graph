@@ -83,14 +83,10 @@ let state = {
   showGrid: true,
   showPenBands: true,
   dragLock: false,
-  realismMode: 'off',
 };
 let ranges = { x: [0, 1], y: [0, 1] };
 let svg = null;
 let colorScale = {};
-let serverAvailable = true;
-let realismMap = { source: '', rows: [] };
-let realismByTpl = new Map();
 
 const MARGIN = { top: 24, right: 64, bottom: 52, left: 58 };
 const MAX_PEN = 120;
@@ -165,29 +161,6 @@ function originalDiffers(row) {
     || Math.abs(Number(stored.penetration) - Number(row.penetration)) > 1e-6;
 }
 
-function readStoredOriginals() {
-  try {
-    const raw = localStorage.getItem('ammo_orig_map_v1');
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (!parsed || typeof parsed !== 'object') return [];
-    return Object.entries(parsed)
-      .filter(([, o]) => o && Number.isFinite(Number(o.damagePerProjectile)) && Number.isFinite(Number(o.penetration)))
-      .map(([tpl, o]) => [tpl, o]);
-  } catch (err) {
-    console.warn('stored originals not loaded', err);
-    return [];
-  }
-}
-
-function writeStoredOriginals() {
-  try {
-    localStorage.setItem('ammo_orig_map_v1', JSON.stringify(Object.fromEntries(originalMap)));
-  } catch (err) {
-    console.warn('originals not stored', err);
-  }
-}
-
 function rememberOriginal(row) {
   if (!row || originalMap.has(row.tpl)) return;
   originalMap.set(row.tpl, {
@@ -195,34 +168,16 @@ function rememberOriginal(row) {
     damagePerProjectile: Number(row.damagePerProjectile),
     penetration: Number(row.penetration),
   });
-  writeStoredOriginals();
 }
 
-async function loadOriginals(force = false) {
-  const stored = readStoredOriginals();
-  originalMap = new Map(stored);
-  try {
-    const response = await fetch(`originals.json${force ? `?t=${Date.now()}` : ''}`);
-    if (!response.ok) return;
-    const payload = await response.json();
-    const seed = payload && payload.values;
-    if (!seed || typeof seed !== 'object') return;
-    const seedTpls = new Set(Object.keys(seed));
-    originalMap = new Map();
-    for (const [tpl, entry] of Object.entries(seed)) {
-      if (!entry || !Number.isFinite(Number(entry.damagePerProjectile)) || !Number.isFinite(Number(entry.penetration))) continue;
-      originalMap.set(tpl, {
-        damage: Number(entry.damage),
-        damagePerProjectile: Number(entry.damagePerProjectile),
-        penetration: Number(entry.penetration),
-      });
-    }
-    for (const [tpl, entry] of stored) {
-      if (!seedTpls.has(tpl)) originalMap.set(tpl, entry);
-    }
-    writeStoredOriginals();
-  } catch (err) {
-    console.warn('originals snapshot not loaded', err);
+function seedOriginalsFromData() {
+  originalMap = new Map();
+  for (const row of DATA.rows) {
+    originalMap.set(row.tpl, {
+      damage: Number(row.damage),
+      damagePerProjectile: Number(row.damagePerProjectile),
+      penetration: Number(row.penetration),
+    });
   }
 }
 
@@ -269,11 +224,6 @@ function currentYLabel() {
 
 function setRangeForRows(rows) {
   const pts = rows.filter((r) => hasPointValue(r, 'x') && hasPointValue(r, 'y'));
-  if (state.realismMode && state.realismMode !== 'off') {
-    for (const point of realismLayer(rows)) {
-      pts.push({ x: point.x, y: point.y });
-    }
-  }
   if (!pts.length) {
     ranges = { x: [0, 300], y: [0, 100] };
     return;
@@ -283,11 +233,8 @@ function setRangeForRows(rows) {
   let minY = Infinity;
   let maxY = -Infinity;
   for (const r of pts) {
-    const rawX = Number.isFinite(Number(r.x)) ? Number(r.x) : Number(axisValue(r, 'x'));
-    const rawY = Number.isFinite(Number(r.y)) ? Number(r.y) : Number(axisValue(r, 'y'));
-    if (!Number.isFinite(rawX) || !Number.isFinite(rawY)) continue;
-    const x = rawX;
-    const y = rawY;
+    const x = Number(axisValue(r, 'x'));
+    const y = Number(axisValue(r, 'y'));
     minX = Math.min(minX, x);
     maxX = Math.max(maxX, x);
     minY = Math.min(minY, y);
@@ -321,158 +268,6 @@ function niceSteps(range) {
     result.push(Math.round(v * 1000) / 1000);
   }
   return result;
-}
-
-function realismModeName(mode) {
-  const label = mode === 'caliber' ? '\u6309\u53e3\u5f84\u6620\u5c04' : mode === 'global' ? '\u5168\u5c40\u6620\u5c04' : '';
-  return label;
-}
-
-function loadRealismMode() {
-  try {
-    const saved = localStorage.getItem('ammo_realism_mode');
-    if (saved === 'caliber' || saved === 'global') state.realismMode = saved;
-  } catch (err) {
-    console.warn('realism mode not restored', err);
-  }
-}
-
-function saveRealismMode() {
-  try {
-    localStorage.setItem('ammo_realism_mode', state.realismMode);
-  } catch (err) {
-    console.warn('realism mode not saved', err);
-  }
-}
-
-function realismPoolRows() {
-  return DATA.rows.filter((r) => currentCalibers.has(r.caliber) && realismByTpl.has(r.tpl));
-}
-
-function realismTarget(row) {
-  const orig = originalValuesFor(row);
-  const damage = Number(orig.damagePerProjectile);
-  const pen = Number(orig.penetration);
-  return Number.isFinite(damage) && Number.isFinite(pen)
-    ? { damagePerProjectile: damage, penetration: pen }
-    : null;
-}
-
-function realismRanges(poolRows) {
-  if (!poolRows.length) return null;
-  let sourceDMin = Infinity;
-  let sourceDMax = -Infinity;
-  let sourcePMin = Infinity;
-  let sourcePMax = -Infinity;
-  let targetDMin = Infinity;
-  let targetDMax = -Infinity;
-  let targetPMin = Infinity;
-  let targetPMax = -Infinity;
-  for (const row of poolRows) {
-    const entry = realismByTpl.get(row.tpl);
-    if (!entry) continue;
-    const sourceDamage = Number(entry.damage);
-    const sourcePen = Number(entry.penetration);
-    const target = realismTarget(row);
-    if (!target) continue;
-    const targetDamage = target.damagePerProjectile;
-    const targetPen = target.penetration;
-    if (!Number.isFinite(sourceDamage) || !Number.isFinite(sourcePen)) continue;
-    if (!Number.isFinite(targetDamage) || !Number.isFinite(targetPen)) continue;
-    sourceDMin = Math.min(sourceDMin, sourceDamage);
-    sourceDMax = Math.max(sourceDMax, sourceDamage);
-    sourcePMin = Math.min(sourcePMin, sourcePen);
-    sourcePMax = Math.max(sourcePMax, sourcePen);
-    targetDMin = Math.min(targetDMin, targetDamage);
-    targetDMax = Math.max(targetDMax, targetDamage);
-    targetPMin = Math.min(targetPMin, targetPen);
-    targetPMax = Math.max(targetPMax, targetPen);
-  }
-  if (!Number.isFinite(sourceDMin)) return null;
-  return {
-    sourceDamage: [sourceDMin, sourceDMax],
-    sourcePenetration: [sourcePMin, sourcePMax],
-    targetDamage: [targetDMin, targetDMax],
-    targetPenetration: [targetPMin, targetPMax],
-  };
-}
-
-function mapMetric(value, sourceRange, targetRange, fallback) {
-  const sourceSpan = sourceRange[1] - sourceRange[0];
-  if (!(sourceSpan > 0)) return Number.isFinite(fallback) ? fallback : targetRange[0];
-  const t = (Number(value) - sourceRange[0]) / sourceSpan;
-  const mapped = targetRange[0] + t * (targetRange[1] - targetRange[0]);
-  return Math.max(targetRange[0], Math.min(targetRange[1], mapped));
-}
-
-function realismLayer(shownRows) {
-  const mode = state.realismMode;
-  if (!mode || mode === 'off') return [];
-  const pool = realismPoolRows();
-  if (!pool.length) return [];
-  const globalRanges = realismRanges(pool);
-  if (!globalRanges) return [];
-  const perCaliberRanges = new Map();
-  if (mode === 'caliber') {
-    for (const caliber of new Set(pool.map((r) => r.caliber))) {
-      perCaliberRanges.set(caliber, realismRanges(pool.filter((r) => r.caliber === caliber)));
-    }
-  }
-  const points = [];
-  for (const row of shownRows) {
-    const entry = realismByTpl.get(row.tpl);
-    if (!entry) continue;
-    const ranges = mode === 'caliber'
-      ? (perCaliberRanges.get(row.caliber) || globalRanges)
-      : globalRanges;
-    if (!ranges) continue;
-    const target = realismTarget(row);
-    const fallbackDamage = target ? target.damagePerProjectile : Number(row.damagePerProjectile);
-    const fallbackPen = target ? target.penetration : Number(row.penetration);
-    const mappedDamage = mapMetric(
-      entry.damage,
-      ranges.sourceDamage,
-      ranges.targetDamage,
-      fallbackDamage
-    );
-    const mappedPen = mapMetric(
-      entry.penetration,
-      ranges.sourcePenetration,
-      ranges.targetPenetration,
-      fallbackPen
-    );
-    if (!Number.isFinite(mappedDamage) || !Number.isFinite(mappedPen)) continue;
-    points.push({
-      row,
-      entry,
-      x: mappedDamage,
-      y: mappedPen,
-    });
-  }
-  return points;
-}
-
-function syncRealismControls() {
-  const el = document.getElementById('realismMode');
-  if (!el) return;
-  el.querySelectorAll('button').forEach((button) => {
-    const active = button.dataset.realism === state.realismMode;
-    button.classList.toggle('active', active);
-    button.setAttribute('aria-pressed', String(active));
-  });
-}
-
-async function loadRealismMap(force = false) {
-  try {
-    const response = await fetch(`realism_map.json${force ? `?t=${Date.now()}` : ''}`);
-    if (!response.ok) return;
-    const payload = await response.json();
-    if (!payload || !Array.isArray(payload.rows)) return;
-    realismMap = payload;
-    realismByTpl = new Map(payload.rows.map((r) => [r.tpl, r]));
-  } catch (err) {
-    console.warn('realism map not loaded', err);
-  }
 }
 
 function drawChart() {
@@ -543,17 +338,6 @@ function drawChart() {
   }
 
   const shownRows = rows;
-  const realismPoints = realismLayer(shownRows);
-  for (const point of realismPoints) {
-    const px = xScale(point.x);
-    const py = yScale(point.y);
-    if (!Number.isFinite(px) || !Number.isFinite(py)) continue;
-    const size = 3.4;
-    const short = point.entry.short || point.entry.name || point.row.short;
-    html += `<rect x="${px - size}" y="${py - size}" width="${size * 2}" height="${size * 2}" transform="rotate(45 ${px} ${py})" fill="#7dd3fc" fill-opacity="0.82" stroke="#0e1117" stroke-width="1" pointer-events="visiblePainted">
-      <title>${escapeHtml(short)} | Realism ${point.entry.damage}/${point.entry.penetration} | ${realismModeName(state.realismMode)} ${Number(point.x.toFixed(2))}/${Number(point.y.toFixed(2))}</title>
-    </rect>`;
-  }
   for (const r of shownRows) {
     const edit = editedMap.get(r.tpl);
     const x = effectiveDamage(r);
@@ -614,15 +398,12 @@ function editedName(tpl) {
 function updateLegend() {
   const legendRow = document.getElementById('legendRow');
   const active = allCalibers.filter((c) => currentCalibers.has(c));
-  let html = active
+  const html = active
     .map((c) => {
       const color = colorScale[c] || '#888';
       return `<span class="legend-chip"><span class="dot" style="background:${color}"></span>${friendlyCaliber(c)}</span>`;
     })
     .join('');
-  if (state.realismMode && state.realismMode !== 'off') {
-    html += `<span class="legend-chip realism"><span class="realism-mark"></span>Realism · ${realismModeName(state.realismMode)}</span>`;
-  }
   legendRow.innerHTML = html || '<span class="muted">无口径显示</span>';
 }
 
@@ -677,24 +458,6 @@ function currentTotalDamage(row) {
   const edit = editedMap.get(row.tpl);
   const value = edit && edit.damage !== undefined ? edit.damage : row.damage;
   return Number(value);
-}
-
-function displayNumber(value) {
-  const n = Number(value);
-  if (!Number.isFinite(n)) return '-';
-  return Math.round(n * 10) / 10;
-}
-
-function realismDetailHtml(row) {
-  const entry = realismByTpl.get(row.tpl);
-  if (!entry) return '';
-  const source = `伤害 ${displayNumber(entry.damage)} · 穿透 ${displayNumber(entry.penetration)}`;
-  if (state.realismMode === 'off') {
-    return `<div class="realism-note"><b>Realism 源值</b>${source}</div>`;
-  }
-  const point = realismLayer([row])[0];
-  if (!point) return `<div class="realism-note"><b>Realism 源值</b>${source}</div>`;
-  return `<div class="realism-note"><b>Realism ${realismModeName(state.realismMode)}</b>${source} → 映射 ${displayNumber(point.x)} / ${displayNumber(point.y)}</div>`;
 }
 
 function renderPointPanel() {
@@ -756,7 +519,6 @@ function renderPointPanel() {
       </div>
       ${showOrig ? `<div class="pp-orig muted">原始值：总伤害 ${Math.round(origTotal)} · 单发威力 ${origDamage.toFixed(1)} · 穿透 ${origPen.toFixed(1)}</div>` : ''}
     </div>
-    ${realismDetailHtml(row)}
   `;
   panel.classList.remove('hidden');
 }
@@ -801,7 +563,6 @@ function renderInspector() {
       ` : ''}
       ${editable ? '<dt>拖拽</dt><dd>可编辑</dd>' : '<dt>拖拽</dt><dd class="warn">锁定</dd>'}
     </dl>
-    ${realismDetailHtml(row)}
     ${editable ? `
       <div class="detail-actions">
         <button type="button" class="ghost small" data-action="reset-point" ${edit ? '' : 'disabled'}>重置散点</button>
@@ -1102,7 +863,7 @@ function editsToPatch() {
   }
   edits.sort((a, b) => a.tpl.localeCompare(b.tpl));
   return {
-    source: DATA.source || 'SPT_Runtime/SPT_Data/database/templates/items.json',
+    source: DATA.source || 'SPT ammo data snapshot',
     generated: new Date().toISOString(),
     edits,
   };
@@ -1118,108 +879,6 @@ function downloadPatch() {
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
   showToast('补丁已下载：ammo_edits.json');
-}
-
-function saveLocal() {
-  try {
-    const patch = editsToPatch();
-    localStorage.setItem('ammo_edits_patch', JSON.stringify(patch));
-    localStorage.setItem('ammo_edits_source', DATA.source);
-    writeStoredOriginals();
-    showToast('修改已保存到浏览器本地');
-  } catch (err) {
-    showToast(`保存失败：${err.message}`, 4000);
-  }
-}
-
-function loadLocal() {
-  try {
-    const raw = localStorage.getItem('ammo_edits_patch');
-    if (!raw) return;
-    const patch = JSON.parse(raw);
-    if (!patch || !Array.isArray(patch.edits)) return;
-    for (const edit of patch.edits) {
-      const row = DATA.rows.find((r) => r.tpl === edit.tpl);
-      if (!row) continue;
-      rememberOriginal(row);
-      const rawDamage = Number(edit.damagePerProjectile);
-      const damagePerProjectile = Number.isFinite(rawDamage)
-        ? rawDamage
-        : Number(edit.damage) / (Number(row.projectileCount) || 1);
-      editedMap.set(edit.tpl, {
-        ...edit,
-        name: edit.name || row.name,
-        damagePerProjectile,
-      });
-    }
-  } catch (err) {
-    console.warn('local edits not loaded', err);
-  }
-}
-
-function writeBackMessage() {
-  const n = editedMap.size;
-  if (n === 0) {
-    showToast('没有可写入的修改');
-    return;
-  }
-  const btn = document.getElementById('writeBackBtn');
-  const label = btn.textContent;
-  btn.disabled = true;
-  btn.textContent = '写入中…';
-  fetch('/api/apply', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(editsToPatch()),
-  })
-    .then(async (response) => {
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok || !data.ok) throw new Error(data.error || `HTTP ${response.status}`);
-      const names = data.changes.length > 3 ? `${data.changes.length} 种弹药` : data.changes.map((c) => c.name).join('、');
-      editedMap.clear();
-      localStorage.removeItem('ammo_edits_patch');
-      localStorage.removeItem('ammo_edits_source');
-      writeStoredOriginals();
-      try {
-        await refreshChartData();
-      } catch (refreshErr) {
-        showToast(`已写入 items.json：${names}，但图表数据刷新失败：${refreshErr.message}`, 8000);
-        return;
-      }
-      showToast(`已写入 items.json 并重建图表数据：${names}（快照 ${data.backupDir}）`, 6000);
-    })
-    .catch((err) => {
-      serverAvailable = false;
-      renderWriteBackHint(err.message);
-    })
-    .finally(() => {
-      btn.disabled = false;
-      btn.textContent = label;
-    });
-}
-
-function renderWriteBackHint(errorMessage) {
-  const box = document.getElementById('statusBox');
-  if (errorMessage) {
-    box.textContent = `写库失败：${errorMessage}`;
-    box.classList.add('dirty');
-  } else if (!serverAvailable) {
-    box.textContent = '本地服务未运行，页面无法直接写库';
-    box.classList.add('dirty');
-  } else {
-    renderStatus();
-  }
-}
-
-async function checkServer() {
-  try {
-    const response = await fetch('/api/reload', { method: 'POST' });
-    serverAvailable = response.ok;
-  } catch (err) {
-    serverAvailable = false;
-  }
-  if (serverAvailable) renderStatus();
-  else renderWriteBackHint();
 }
 
 function currentRowForZoom() {
@@ -1286,15 +945,6 @@ function setupEventListeners() {
     drawChart();
   });
 
-  document.getElementById('realismMode').addEventListener('click', (event) => {
-    const btn = event.target.closest('button');
-    if (!btn) return;
-    state.realismMode = btn.dataset.realism || 'off';
-    saveRealismMode();
-    syncRealismControls();
-    renderAll();
-  });
-
   document.getElementById('onlyEdited').addEventListener('change', (event) => {
     state.onlyEdited = event.target.checked;
     renderAll();
@@ -1344,10 +994,6 @@ function setupEventListeners() {
     showToast('页面修改已清空');
   });
   document.getElementById('downloadPatchBtn').addEventListener('click', downloadPatch);
-  const saveEditsBtn = document.getElementById('saveEditsBtn');
-  if (saveEditsBtn) saveEditsBtn.addEventListener('click', saveLocal);
-  const writeBackBtn = document.getElementById('writeBackBtn');
-  if (writeBackBtn) writeBackBtn.addEventListener('click', writeBackMessage);
   document.getElementById('resetViewBtn').addEventListener('click', () => {
     searchTerm = '';
     selectedTpl = null;
@@ -1379,29 +1025,9 @@ async function loadData() {
   }
   const sourceLine = document.getElementById('sourceLine');
   sourceLine.textContent = `${DATA.source || ''} · ${DATA.count || 0} 种弹药 · ${new Date(DATA.generated || Date.now()).toLocaleString()}`;
-  loadRealismMode();
-  await Promise.all([loadOriginals(), loadRealismMap()]);
+  seedOriginalsFromData();
   buildData();
-  if (document.getElementById('saveEditsBtn')) loadLocal();
   setupEventListeners();
-  syncRealismControls();
-  if (document.getElementById('writeBackBtn')) await checkServer();
-  renderAll();
-  if (!serverAvailable && document.getElementById('writeBackBtn')) renderWriteBackHint();
-}
-
-async function refreshChartData() {
-  const response = await fetch(`data.json?t=${Date.now()}`);
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
-  const next = await response.json();
-  if (!next || !Array.isArray(next.rows)) throw new Error('data.json 格式异常');
-  DATA = next;
-  await Promise.all([loadOriginals(true), loadRealismMap(true)]);
-  const sourceLine = document.getElementById('sourceLine');
-  sourceLine.textContent = `${DATA.source || ''} · ${DATA.count || 0} 种弹药 · ${new Date(DATA.generated || Date.now()).toLocaleString()}`;
-  buildData();
-  if (document.getElementById('saveEditsBtn')) loadLocal();
-  syncRealismControls();
   renderAll();
 }
 

@@ -1,27 +1,27 @@
 {
   "source": "SPT_Runtime/SPT_Data/database/templates/items.json",
-  "generated": "2026-09-09T10:48:29.506Z",
+  "generated": "2026-09-09T12:12:01.966Z",
   "count": 208,
   "rows": [
-    {
-      "tpl": "5e81f423763d9f754677bf2e",
-      "name": ".45 ACP Match FMJ",
-      "short": "FMJ",
-      "caliber": "Caliber1143x23ACP",
-      "projectileCount": 1,
-      "damagePerProjectile": 72,
-      "damage": 72,
-      "penetration": 20
-    },
     {
       "tpl": "5efb0cabfb3e451d70735af5",
       "name": ".45 ACP AP",
       "short": "AP",
       "caliber": "Caliber1143x23ACP",
       "projectileCount": 1,
-      "damagePerProjectile": 66,
-      "damage": 66,
-      "penetration": 20
+      "damagePerProjectile": 42,
+      "damage": 42,
+      "penetration": 39
+    },
+    {
+      "tpl": "5e81f423763d9f754677bf2e",
+      "name": ".45 ACP Match FMJ",
+      "short": "FMJ",
+      "caliber": "Caliber1143x23ACP",
+      "projectileCount": 1,
+      "damagePerProjectile": 43,
+      "damage": 43,
+      "penetration": 23
     },
     {
       "tpl": "5ea2a8e200685063ec28c05a",
@@ -29,9 +29,9 @@
       "short": "RIP",
       "caliber": "Caliber1143x23ACP",
       "projectileCount": 1,
-      "damagePerProjectile": 130,
-      "damage": 130,
-      "penetration": 13
+      "damagePerProjectile": 49,
+      "damage": 49,
+      "penetration": 19
     },
     {
       "tpl": "5efb0d4f4bc50b58e81710f3",
@@ -39,9 +39,9 @@
       "short": "Lasermatch",
       "caliber": "Caliber1143x23ACP",
       "projectileCount": 1,
-      "damagePerProjectile": 76,
-      "damage": 76,
-      "penetration": 12
+      "damagePerProjectile": 36,
+      "damage": 36,
+      "penetration": 18
     },
     {
       "tpl": "5efb0fc6aeb21837e749c801",
@@ -49,9 +49,9 @@
       "short": "HydraShok",
       "caliber": "Caliber1143x23ACP",
       "projectileCount": 1,
-      "damagePerProjectile": 100,
-      "damage": 100,
-      "penetration": 11
+      "damagePerProjectile": 56,
+      "damage": 56,
+      "penetration": 16
     },
     {
       "tpl": "5cde8864d7f00c0010373be1",
@@ -59,9 +59,9 @@
       "short": "B-32",
       "caliber": "Caliber127x108",
       "projectileCount": 1,
-      "damagePerProjectile": 182,
-      "damage": 182,
-      "penetration": 88
+      "damagePerProjectile": 265,
+      "damage": 265,
+      "penetration": 65
     },
     {
       "tpl": "5d2f2ab648f03550091993ca",
@@ -69,9 +69,9 @@
       "short": "BZT-44M",
       "caliber": "Caliber127x108",
       "projectileCount": 1,
-      "damagePerProjectile": 199,
-      "damage": 199,
-      "penetration": 80
+      "damagePerProjectile": 265,
+      "damage": 265,
+      "penetration": 65
     },
     {
       "tpl": "66a0d1e0ed648d72fe064d06",
@@ -79,19 +79,9 @@
       "short": "Copper",
       "caliber": "Caliber127x33",
       "projectileCount": 1,
-      "damagePerProjectile": 94,
-      "damage": 94,
-      "penetration": 19
-    },
-    {
-      "tpl": "66a0d1f88486c69fce00fdf6",
-      "name": ".50 AE Hawk JSP",
-      "short": "Hawk JSP",
-      "caliber": "Caliber127x33",
-      "projectileCount": 1,
-      "damagePerProjectile": 122,
-      "damage": 122,
-      "penetration": 16
+      "damagePerProjectile": 75,
+      "damage": 75,
+      "penetration": 37
     },
     {
       "tpl": "668fe62ac62660a5d8071446",
@@ -99,9 +89,19 @@
       "short": "FMJ",
       "caliber": "Caliber127x33",
       "projectileCount": 1,
-      "damagePerProjectile": 85,
-      "damage": 85,
-      "penetration": 15
+      "damagePerProjectile": 90,
+      "damage": 90,
+      "penetration": 31
+    },
+    {
+      "tpl": "66a0d1f88486c69fce00fdf6",
+      "name": ".50 AE Hawk JSP",
+      "short": "Hawk JSP",
+      "caliber": "Caliber127x33",
+      "projectileCount": 1,
+      "damagePerProjectile": 98,
+      "damage": 98,
+      "penetration": 27
     },
     {
       "tpl": "66a0d1c87d0d369e270bb9de",
@@ -109,9 +109,9 @@
       "short": "JHP",
       "caliber": "Caliber127x33",
       "projectileCount": 1,
-      "damagePerProjectile": 147,
-      "damage": 147,
-      "penetration": 14
+      "damagePerProjectile": 113,
+      "damage": 113,
+      "penetration": 23
     },
     {
       "tpl": "5cadf6eeae921500134b2799",
@@ -119,9 +119,9 @@
       "short": "PS12B",
       "caliber": "Caliber127x55",
       "projectileCount": 1,
-      "damagePerProjectile": 102,
-      "damage": 102,
-      "penetration": 42
+      "damagePerProjectile": 94,
+      "damage": 94,
+      "penetration": 49
     },
     {
       "tpl": "5cadf6ddae9215051e1c23b2",
@@ -129,9 +129,9 @@
       "short": "PS12",
       "caliber": "Caliber127x55",
       "projectileCount": 1,
-      "damagePerProjectile": 115,
-      "damage": 115,
-      "penetration": 28
+      "damagePerProjectile": 102,
+      "damage": 102,
+      "penetration": 44
     },
     {
       "tpl": "5cadf6e5ae921500113bb973",
@@ -139,9 +139,9 @@
       "short": "PS12A",
       "caliber": "Caliber127x55",
       "projectileCount": 1,
-      "damagePerProjectile": 165,
-      "damage": 165,
-      "penetration": 24
+      "damagePerProjectile": 113,
+      "damage": 113,
+      "penetration": 41
     },
     {
       "tpl": "67dc2648ba5b79876906a166",
@@ -189,39 +189,29 @@
       "short": "AP-20",
       "caliber": "Caliber12g",
       "projectileCount": 1,
-      "damagePerProjectile": 164,
-      "damage": 164,
-      "penetration": 37
+      "damagePerProjectile": 121,
+      "damage": 121,
+      "penetration": 53
     },
     {
-      "tpl": "5d6e6911a4b9361bd5780d52",
-      "name": "12/70 flechette",
-      "short": "Flechette",
-      "caliber": "Caliber12g",
-      "projectileCount": 8,
-      "damagePerProjectile": 3.125,
-      "damage": 25,
-      "penetration": 31
-    },
-    {
-      "tpl": "5d6e68c4a4b9361b93413f79",
-      "name": "12/70 makeshift .50 BMG slug",
-      "short": ".50 BMG",
+      "tpl": "5d6e68d1a4b93622fe60e845",
+      "name": "12/70 SuperFormance HP slug",
+      "short": "SFormance",
       "caliber": "Caliber12g",
       "projectileCount": 1,
-      "damagePerProjectile": 197,
-      "damage": 197,
-      "penetration": 26
+      "damagePerProjectile": 136,
+      "damage": 136,
+      "penetration": 41
     },
     {
-      "tpl": "64b8ee384b75259c590fa89b",
-      "name": "12/70 Piranha",
-      "short": "Piranha",
+      "tpl": "5d6e68b3a4b9361bca7e50b5",
+      "name": "12/70 Copper Sabot Premier HP slug",
+      "short": "CSP",
       "caliber": "Caliber12g",
-      "projectileCount": 10,
-      "damagePerProjectile": 2.5,
-      "damage": 25,
-      "penetration": 24
+      "projectileCount": 1,
+      "damagePerProjectile": 142,
+      "damage": 142,
+      "penetration": 38
     },
     {
       "tpl": "5d6e68e6a4b9361c140bcfe0",
@@ -229,9 +219,9 @@
       "short": "FTX",
       "caliber": "Caliber12g",
       "projectileCount": 1,
-      "damagePerProjectile": 183,
-      "damage": 183,
-      "penetration": 20
+      "damagePerProjectile": 116,
+      "damage": 116,
+      "penetration": 36
     },
     {
       "tpl": "5d6e689ca4b9361bc8618956",
@@ -239,9 +229,19 @@
       "short": "Poleva-6u",
       "caliber": "Caliber12g",
       "projectileCount": 1,
-      "damagePerProjectile": 150,
-      "damage": 150,
-      "penetration": 20
+      "damagePerProjectile": 128,
+      "damage": 128,
+      "penetration": 25
+    },
+    {
+      "tpl": "5d6e6911a4b9361bd5780d52",
+      "name": "12/70 flechette",
+      "short": "Flechette",
+      "caliber": "Caliber12g",
+      "projectileCount": 8,
+      "damagePerProjectile": 1.625,
+      "damage": 13,
+      "penetration": 24
     },
     {
       "tpl": "5d6e6891a4b9361bd473feea",
@@ -249,18 +249,28 @@
       "short": "Poleva-3",
       "caliber": "Caliber12g",
       "projectileCount": 1,
-      "damagePerProjectile": 140,
-      "damage": 140,
-      "penetration": 17
+      "damagePerProjectile": 141,
+      "damage": 141,
+      "penetration": 19
     },
     {
-      "tpl": "5d6e68dea4b9361bcc29e659",
-      "name": "12/70 Dual Sabot slug",
-      "short": "DualSabot",
+      "tpl": "5c0d591486f7744c505b416f",
+      "name": "12/70 RIP",
+      "short": "RIP",
       "caliber": "Caliber12g",
-      "projectileCount": 2,
-      "damagePerProjectile": 42.5,
-      "damage": 85,
+      "projectileCount": 1,
+      "damagePerProjectile": 137,
+      "damage": 137,
+      "penetration": 18
+    },
+    {
+      "tpl": "5d6e6869a4b9361c140bcfde",
+      "name": "12/70 Grizzly 40 slug",
+      "short": "Grizzly 40",
+      "caliber": "Caliber12g",
+      "projectileCount": 1,
+      "damagePerProjectile": 158,
+      "damage": 158,
       "penetration": 17
     },
     {
@@ -269,69 +279,39 @@
       "short": "Slug",
       "caliber": "Caliber12g",
       "projectileCount": 1,
-      "damagePerProjectile": 167,
-      "damage": 167,
+      "damagePerProjectile": 125,
+      "damage": 125,
       "penetration": 15
     },
     {
-      "tpl": "5d6e68b3a4b9361bca7e50b5",
-      "name": "12/70 Copper Sabot Premier HP slug",
-      "short": "CSP",
+      "tpl": "5d6e68c4a4b9361b93413f79",
+      "name": "12/70 makeshift .50 BMG slug",
+      "short": ".50 BMG",
       "caliber": "Caliber12g",
       "projectileCount": 1,
-      "damagePerProjectile": 206,
-      "damage": 206,
-      "penetration": 14
+      "damagePerProjectile": 96,
+      "damage": 96,
+      "penetration": 15
     },
     {
-      "tpl": "5d6e6869a4b9361c140bcfde",
-      "name": "12/70 Grizzly 40 slug",
-      "short": "Grizzly 40",
+      "tpl": "5d6e68dea4b9361bcc29e659",
+      "name": "12/70 Dual Sabot slug",
+      "short": "DualSabot",
       "caliber": "Caliber12g",
-      "projectileCount": 1,
-      "damagePerProjectile": 190,
-      "damage": 190,
-      "penetration": 12
+      "projectileCount": 2,
+      "damagePerProjectile": 57.5,
+      "damage": 115,
+      "penetration": 15
     },
     {
-      "tpl": "5d6e68d1a4b93622fe60e845",
-      "name": "12/70 SuperFormance HP slug",
-      "short": "SFormance",
+      "tpl": "64b8ee384b75259c590fa89b",
+      "name": "12/70 Piranha",
+      "short": "Piranha",
       "caliber": "Caliber12g",
-      "projectileCount": 1,
-      "damagePerProjectile": 220,
-      "damage": 220,
-      "penetration": 5
-    },
-    {
-      "tpl": "560d5e524bdc2d25448b4571",
-      "name": "12/70 7mm buckshot",
-      "short": "7mm",
-      "caliber": "Caliber12g",
-      "projectileCount": 8,
-      "damagePerProjectile": 4.875,
-      "damage": 39,
-      "penetration": 3
-    },
-    {
-      "tpl": "5d6e67fba4b9361bc73bc779",
-      "name": "12/70 6.5mm Express buckshot",
-      "short": "Express",
-      "caliber": "Caliber12g",
-      "projectileCount": 9,
-      "damagePerProjectile": 3.888888888888889,
-      "damage": 35,
-      "penetration": 3
-    },
-    {
-      "tpl": "5c0d591486f7744c505b416f",
-      "name": "12/70 RIP",
-      "short": "RIP",
-      "caliber": "Caliber12g",
-      "projectileCount": 1,
-      "damagePerProjectile": 265,
-      "damage": 265,
-      "penetration": 2
+      "projectileCount": 10,
+      "damagePerProjectile": 98,
+      "damage": 980,
+      "penetration": 8
     },
     {
       "tpl": "5d6e6806a4b936088465b17e",
@@ -339,8 +319,28 @@
       "short": "Magnum",
       "caliber": "Caliber12g",
       "projectileCount": 8,
-      "damagePerProjectile": 6.25,
-      "damage": 50,
+      "damagePerProjectile": 4,
+      "damage": 32,
+      "penetration": 2
+    },
+    {
+      "tpl": "560d5e524bdc2d25448b4571",
+      "name": "12/70 7mm buckshot",
+      "short": "7mm",
+      "caliber": "Caliber12g",
+      "projectileCount": 8,
+      "damagePerProjectile": 3,
+      "damage": 24,
+      "penetration": 2
+    },
+    {
+      "tpl": "5d6e67fba4b9361bc73bc779",
+      "name": "12/70 6.5mm Express buckshot",
+      "short": "Express",
+      "caliber": "Caliber12g",
+      "projectileCount": 9,
+      "damagePerProjectile": 2.2222222222222223,
+      "damage": 20,
       "penetration": 2
     },
     {
@@ -349,8 +349,8 @@
       "short": "5.25mm",
       "caliber": "Caliber12g",
       "projectileCount": 8,
-      "damagePerProjectile": 4.625,
-      "damage": 37,
+      "damagePerProjectile": 2.75,
+      "damage": 22,
       "penetration": 1
     },
     {
@@ -359,9 +359,9 @@
       "short": "TSS AP",
       "caliber": "Caliber20g",
       "projectileCount": 1,
-      "damagePerProjectile": 155,
-      "damage": 155,
-      "penetration": 30
+      "damagePerProjectile": 90,
+      "damage": 90,
+      "penetration": 44
     },
     {
       "tpl": "660137ef76c1b56143052be8",
@@ -369,19 +369,9 @@
       "short": "DGS",
       "caliber": "Caliber20g",
       "projectileCount": 1,
-      "damagePerProjectile": 143,
-      "damage": 143,
-      "penetration": 25
-    },
-    {
-      "tpl": "6601380580e77cfd080e3418",
-      "name": "20/70 flechette",
-      "short": "Flechette",
-      "caliber": "Caliber20g",
-      "projectileCount": 8,
-      "damagePerProjectile": 2.5,
-      "damage": 20,
-      "penetration": 24
+      "damagePerProjectile": 98,
+      "damage": 98,
+      "penetration": 34
     },
     {
       "tpl": "5d6e6a42a4b9364f07165f52",
@@ -389,19 +379,9 @@
       "short": "Poleva-6u",
       "caliber": "Caliber20g",
       "projectileCount": 1,
-      "damagePerProjectile": 135,
-      "damage": 135,
-      "penetration": 17
-    },
-    {
-      "tpl": "5d6e6a05a4b93618084f58d0",
-      "name": "20/70 Star slug",
-      "short": "Star",
-      "caliber": "Caliber20g",
-      "projectileCount": 1,
-      "damagePerProjectile": 154,
-      "damage": 154,
-      "penetration": 16
+      "damagePerProjectile": 112,
+      "damage": 112,
+      "penetration": 28
     },
     {
       "tpl": "5d6e6a53a4b9361bd473feec",
@@ -409,9 +389,29 @@
       "short": "Poleva-3",
       "caliber": "Caliber20g",
       "projectileCount": 1,
-      "damagePerProjectile": 120,
-      "damage": 120,
-      "penetration": 14
+      "damagePerProjectile": 128,
+      "damage": 128,
+      "penetration": 20
+    },
+    {
+      "tpl": "6601380580e77cfd080e3418",
+      "name": "20/70 flechette",
+      "short": "Flechette",
+      "caliber": "Caliber20g",
+      "projectileCount": 8,
+      "damagePerProjectile": 1.125,
+      "damage": 9,
+      "penetration": 18
+    },
+    {
+      "tpl": "5d6e6a05a4b93618084f58d0",
+      "name": "20/70 Star slug",
+      "short": "Star",
+      "caliber": "Caliber20g",
+      "projectileCount": 1,
+      "damagePerProjectile": 133,
+      "damage": 133,
+      "penetration": 15
     },
     {
       "tpl": "5d6e6a5fa4b93614ec501745",
@@ -419,9 +419,9 @@
       "short": "Devastator",
       "caliber": "Caliber20g",
       "projectileCount": 1,
-      "damagePerProjectile": 198,
-      "damage": 198,
-      "penetration": 5
+      "damagePerProjectile": 144,
+      "damage": 144,
+      "penetration": 11
     },
     {
       "tpl": "5a38ebd9c4a282000d722a5b",
@@ -429,19 +429,9 @@
       "short": "7.5mm",
       "caliber": "Caliber20g",
       "projectileCount": 8,
-      "damagePerProjectile": 3.125,
-      "damage": 25,
-      "penetration": 3
-    },
-    {
-      "tpl": "5d6e69c7a4b9360b6c0d54e4",
-      "name": "20/70 7.3mm buckshot",
-      "short": "7.3mm",
-      "caliber": "Caliber20g",
-      "projectileCount": 9,
-      "damagePerProjectile": 2.5555555555555554,
-      "damage": 23,
-      "penetration": 3
+      "damagePerProjectile": 1.625,
+      "damage": 13,
+      "penetration": 2
     },
     {
       "tpl": "5d6e69b9a4b9361bc8618958",
@@ -449,8 +439,18 @@
       "short": "6.2mm",
       "caliber": "Caliber20g",
       "projectileCount": 8,
-      "damagePerProjectile": 2.75,
-      "damage": 22,
+      "damagePerProjectile": 1.375,
+      "damage": 11,
+      "penetration": 2
+    },
+    {
+      "tpl": "5d6e69c7a4b9360b6c0d54e4",
+      "name": "20/70 7.3mm buckshot",
+      "short": "7.3mm",
+      "caliber": "Caliber20g",
+      "projectileCount": 9,
+      "damagePerProjectile": 1.2222222222222223,
+      "damage": 11,
       "penetration": 2
     },
     {
@@ -459,8 +459,8 @@
       "short": "5.6mm",
       "caliber": "Caliber20g",
       "projectileCount": 8,
-      "damagePerProjectile": 3.25,
-      "damage": 26,
+      "damagePerProjectile": 1.75,
+      "damage": 14,
       "penetration": 1
     },
     {
@@ -479,9 +479,9 @@
       "short": "Barrikada",
       "caliber": "Caliber23x75",
       "projectileCount": 1,
-      "damagePerProjectile": 192,
-      "damage": 192,
-      "penetration": 39
+      "damagePerProjectile": 250,
+      "damage": 250,
+      "penetration": 46
     },
     {
       "tpl": "5e85aac65505fa48730d8af2",
@@ -499,9 +499,9 @@
       "short": "Shrap-10",
       "caliber": "Caliber23x75",
       "projectileCount": 8,
-      "damagePerProjectile": 10.875,
-      "damage": 87,
-      "penetration": 11
+      "damagePerProjectile": 7.5,
+      "damage": 60,
+      "penetration": 8
     },
     {
       "tpl": "5f647f31b6238e5dd066e196",
@@ -509,9 +509,9 @@
       "short": "Shrap-25",
       "caliber": "Caliber23x75",
       "projectileCount": 8,
-      "damagePerProjectile": 9.75,
-      "damage": 78,
-      "penetration": 10
+      "damagePerProjectile": 6.625,
+      "damage": 53,
+      "penetration": 8
     },
     {
       "tpl": "5f647fd3f6e4ab66c82faed6",
@@ -519,9 +519,9 @@
       "short": "Volna-R",
       "caliber": "Caliber23x75",
       "projectileCount": 8,
-      "damagePerProjectile": 4,
-      "damage": 32,
-      "penetration": 3
+      "damagePerProjectile": 2.25,
+      "damage": 18,
+      "penetration": 2
     },
     {
       "tpl": "5e85a9f4add9fe03027d9bf1",
@@ -669,9 +669,9 @@
       "short": "AP-M",
       "caliber": "Caliber366TKM",
       "projectileCount": 1,
-      "damagePerProjectile": 86,
-      "damage": 86,
-      "penetration": 35
+      "damagePerProjectile": 75,
+      "damage": 75,
+      "penetration": 46
     },
     {
       "tpl": "59e655cb86f77411dc52a77b",
@@ -679,9 +679,9 @@
       "short": "EKO",
       "caliber": "Caliber366TKM",
       "projectileCount": 1,
-      "damagePerProjectile": 90,
-      "damage": 90,
-      "penetration": 33
+      "damagePerProjectile": 79,
+      "damage": 79,
+      "penetration": 44
     },
     {
       "tpl": "59e6542b86f77411dc52a77a",
@@ -689,9 +689,9 @@
       "short": "FMJ",
       "caliber": "Caliber366TKM",
       "projectileCount": 1,
-      "damagePerProjectile": 95,
-      "damage": 95,
-      "penetration": 28
+      "damagePerProjectile": 83,
+      "damage": 83,
+      "penetration": 41
     },
     {
       "tpl": "59e6658b86f77411d949b250",
@@ -699,9 +699,9 @@
       "short": "Geksa",
       "caliber": "Caliber366TKM",
       "projectileCount": 1,
-      "damagePerProjectile": 105,
-      "damage": 105,
-      "penetration": 25
+      "damagePerProjectile": 92,
+      "damage": 92,
+      "penetration": 39
     },
     {
       "tpl": "5656eb674bdc2d35148b457c",
@@ -719,9 +719,9 @@
       "short": "M576",
       "caliber": "Caliber40x46",
       "projectileCount": 15,
-      "damagePerProjectile": 10.666666666666666,
-      "damage": 160,
-      "penetration": 5
+      "damagePerProjectile": 7.333333333333333,
+      "damage": 110,
+      "penetration": 4
     },
     {
       "tpl": "5ede4739e0350d05467f73e8",
@@ -789,9 +789,9 @@
       "short": "AP SX",
       "caliber": "Caliber46x30",
       "projectileCount": 1,
-      "damagePerProjectile": 35,
-      "damage": 35,
-      "penetration": 23
+      "damagePerProjectile": 29,
+      "damage": 29,
+      "penetration": 40
     },
     {
       "tpl": "5ba26844d4351e00334c9475",
@@ -799,9 +799,9 @@
       "short": "Subsonic SX",
       "caliber": "Caliber46x30",
       "projectileCount": 1,
-      "damagePerProjectile": 52,
-      "damage": 52,
-      "penetration": 22
+      "damagePerProjectile": 25,
+      "damage": 25,
+      "penetration": 39
     },
     {
       "tpl": "5ba2678ad4351e44f824b344",
@@ -809,19 +809,9 @@
       "short": "FMJ SX",
       "caliber": "Caliber46x30",
       "projectileCount": 1,
-      "damagePerProjectile": 43,
-      "damage": 43,
-      "penetration": 17
-    },
-    {
-      "tpl": "5ba26812d4351e003201fef1",
-      "name": "4.6x30mm Action SX",
-      "short": "Action SX",
-      "caliber": "Caliber46x30",
-      "projectileCount": 1,
-      "damagePerProjectile": 65,
-      "damage": 65,
-      "penetration": 15
+      "damagePerProjectile": 30,
+      "damage": 30,
+      "penetration": 34
     },
     {
       "tpl": "64b6979341772715af0f9c39",
@@ -829,9 +819,19 @@
       "short": "JSP SX",
       "caliber": "Caliber46x30",
       "projectileCount": 1,
-      "damagePerProjectile": 46,
-      "damage": 46,
-      "penetration": 15
+      "damagePerProjectile": 35,
+      "damage": 35,
+      "penetration": 31
+    },
+    {
+      "tpl": "5ba26812d4351e003201fef1",
+      "name": "4.6x30mm Action SX",
+      "short": "Action SX",
+      "caliber": "Caliber46x30",
+      "projectileCount": 1,
+      "damagePerProjectile": 41,
+      "damage": 41,
+      "penetration": 29
     },
     {
       "tpl": "5c0d5e4486f77478390952fe",
@@ -839,9 +839,9 @@
       "short": "PPBS",
       "caliber": "Caliber545x39",
       "projectileCount": 1,
-      "damagePerProjectile": 54,
-      "damage": 54,
-      "penetration": 60
+      "damagePerProjectile": 46,
+      "damage": 46,
+      "penetration": 64
     },
     {
       "tpl": "56dff026d2720bb8668b4567",
@@ -849,9 +849,9 @@
       "short": "BS",
       "caliber": "Caliber545x39",
       "projectileCount": 1,
-      "damagePerProjectile": 55,
-      "damage": 55,
-      "penetration": 52
+      "damagePerProjectile": 48,
+      "damage": 48,
+      "penetration": 57
     },
     {
       "tpl": "61962b617c6c7b169525f168",
@@ -859,9 +859,9 @@
       "short": "7N40",
       "caliber": "Caliber545x39",
       "projectileCount": 1,
-      "damagePerProjectile": 56,
-      "damage": 56,
-      "penetration": 48
+      "damagePerProjectile": 49,
+      "damage": 49,
+      "penetration": 54
     },
     {
       "tpl": "56dfef82d2720bbd668b4567",
@@ -869,9 +869,9 @@
       "short": "BP",
       "caliber": "Caliber545x39",
       "projectileCount": 1,
-      "damagePerProjectile": 57,
-      "damage": 57,
-      "penetration": 47
+      "damagePerProjectile": 49,
+      "damage": 49,
+      "penetration": 53
     },
     {
       "tpl": "56dff061d2720bb5668b4567",
@@ -879,9 +879,9 @@
       "short": "BT",
       "caliber": "Caliber545x39",
       "projectileCount": 1,
-      "damagePerProjectile": 58,
-      "damage": 58,
-      "penetration": 45
+      "damagePerProjectile": 50,
+      "damage": 50,
+      "penetration": 51
     },
     {
       "tpl": "56dff2ced2720bb4668b4567",
@@ -889,9 +889,9 @@
       "short": "PP",
       "caliber": "Caliber545x39",
       "projectileCount": 1,
-      "damagePerProjectile": 57,
-      "damage": 57,
-      "penetration": 43
+      "damagePerProjectile": 49,
+      "damage": 49,
+      "penetration": 50
     },
     {
       "tpl": "56dff3afd2720bba668b4567",
@@ -899,9 +899,9 @@
       "short": "PS",
       "caliber": "Caliber545x39",
       "projectileCount": 1,
-      "damagePerProjectile": 62,
-      "damage": 62,
-      "penetration": 34
+      "damagePerProjectile": 53,
+      "damage": 53,
+      "penetration": 44
     },
     {
       "tpl": "56dff0bed2720bb0668b4567",
@@ -909,9 +909,9 @@
       "short": "FMJ",
       "caliber": "Caliber545x39",
       "projectileCount": 1,
-      "damagePerProjectile": 68,
-      "damage": 68,
-      "penetration": 29
+      "damagePerProjectile": 58,
+      "damage": 58,
+      "penetration": 42
     },
     {
       "tpl": "56dff421d2720b5f5a8b4567",
@@ -919,9 +919,9 @@
       "short": "SP",
       "caliber": "Caliber545x39",
       "projectileCount": 1,
-      "damagePerProjectile": 82,
-      "damage": 82,
-      "penetration": 27
+      "damagePerProjectile": 71,
+      "damage": 71,
+      "penetration": 41
     },
     {
       "tpl": "56dff4a2d2720bbd668b456a",
@@ -929,9 +929,9 @@
       "short": "T",
       "caliber": "Caliber545x39",
       "projectileCount": 1,
-      "damagePerProjectile": 63,
-      "damage": 63,
-      "penetration": 27
+      "damagePerProjectile": 54,
+      "damage": 54,
+      "penetration": 41
     },
     {
       "tpl": "56dff216d2720bbd668b4568",
@@ -939,9 +939,9 @@
       "short": "HP",
       "caliber": "Caliber545x39",
       "projectileCount": 1,
-      "damagePerProjectile": 96,
-      "damage": 96,
-      "penetration": 26
+      "damagePerProjectile": 83,
+      "damage": 83,
+      "penetration": 40
     },
     {
       "tpl": "56dff338d2720bbd668b4569",
@@ -949,9 +949,9 @@
       "short": "PRS",
       "caliber": "Caliber545x39",
       "projectileCount": 1,
-      "damagePerProjectile": 55,
-      "damage": 55,
-      "penetration": 19
+      "damagePerProjectile": 48,
+      "damage": 48,
+      "penetration": 34
     },
     {
       "tpl": "56dff4ecd2720b5f5a8b4568",
@@ -959,9 +959,9 @@
       "short": "US",
       "caliber": "Caliber545x39",
       "projectileCount": 1,
-      "damagePerProjectile": 37,
-      "damage": 37,
-      "penetration": 14
+      "damagePerProjectile": 33,
+      "damage": 33,
+      "penetration": 23
     },
     {
       "tpl": "601949593ae8f707c4608daa",
@@ -969,9 +969,9 @@
       "short": "SSA AP",
       "caliber": "Caliber556x45NATO",
       "projectileCount": 1,
-      "damagePerProjectile": 38,
-      "damage": 38,
-      "penetration": 62
+      "damagePerProjectile": 46,
+      "damage": 46,
+      "penetration": 69
     },
     {
       "tpl": "59e690b686f7746c9f75e848",
@@ -979,9 +979,9 @@
       "short": "M995",
       "caliber": "Caliber556x45NATO",
       "projectileCount": 1,
-      "damagePerProjectile": 57,
-      "damage": 57,
-      "penetration": 55
+      "damagePerProjectile": 49,
+      "damage": 49,
+      "penetration": 64
     },
     {
       "tpl": "54527ac44bdc2d36668b4567",
@@ -989,9 +989,9 @@
       "short": "M855A1",
       "caliber": "Caliber556x45NATO",
       "projectileCount": 1,
-      "damagePerProjectile": 68,
-      "damage": 68,
-      "penetration": 46
+      "damagePerProjectile": 59,
+      "damage": 59,
+      "penetration": 57
     },
     {
       "tpl": "54527a984bdc2d4e668b4567",
@@ -999,19 +999,9 @@
       "short": "M855",
       "caliber": "Caliber556x45NATO",
       "projectileCount": 1,
-      "damagePerProjectile": 56,
-      "damage": 56,
-      "penetration": 40
-    },
-    {
-      "tpl": "59e6906286f7746c9f75e847",
-      "name": "5.56x45mm M856A1",
-      "short": "M856A1",
-      "caliber": "Caliber556x45NATO",
-      "projectileCount": 1,
-      "damagePerProjectile": 63,
-      "damage": 63,
-      "penetration": 34
+      "damagePerProjectile": 47,
+      "damage": 47,
+      "penetration": 53
     },
     {
       "tpl": "60194943740c5d77f6705eea",
@@ -1019,9 +1009,19 @@
       "short": "SOST",
       "caliber": "Caliber556x45NATO",
       "projectileCount": 1,
-      "damagePerProjectile": 80,
-      "damage": 80,
-      "penetration": 33
+      "damagePerProjectile": 71,
+      "damage": 71,
+      "penetration": 49
+    },
+    {
+      "tpl": "59e6906286f7746c9f75e847",
+      "name": "5.56x45mm M856A1",
+      "short": "M856A1",
+      "caliber": "Caliber556x45NATO",
+      "projectileCount": 1,
+      "damagePerProjectile": 54,
+      "damage": 54,
+      "penetration": 48
     },
     {
       "tpl": "59e6920f86f77411d82aa167",
@@ -1029,9 +1029,9 @@
       "short": "FMJ",
       "caliber": "Caliber556x45NATO",
       "projectileCount": 1,
-      "damagePerProjectile": 66,
-      "damage": 66,
-      "penetration": 28
+      "damagePerProjectile": 55,
+      "damage": 55,
+      "penetration": 44
     },
     {
       "tpl": "5c0d5ae286f7741e46554302",
@@ -1039,9 +1039,9 @@
       "short": "Warmage",
       "caliber": "Caliber556x45NATO",
       "projectileCount": 1,
-      "damagePerProjectile": 105,
-      "damage": 105,
-      "penetration": 26
+      "damagePerProjectile": 94,
+      "damage": 94,
+      "penetration": 43
     },
     {
       "tpl": "59e68f6f86f7746c9f75e846",
@@ -1049,9 +1049,9 @@
       "short": "M856",
       "caliber": "Caliber556x45NATO",
       "projectileCount": 1,
-      "damagePerProjectile": 60,
-      "damage": 60,
-      "penetration": 25
+      "damagePerProjectile": 51,
+      "damage": 51,
+      "penetration": 42
     },
     {
       "tpl": "59e6927d86f77411da468256",
@@ -1059,9 +1059,9 @@
       "short": "HP",
       "caliber": "Caliber556x45NATO",
       "projectileCount": 1,
-      "damagePerProjectile": 93,
-      "damage": 93,
-      "penetration": 21
+      "damagePerProjectile": 83,
+      "damage": 83,
+      "penetration": 39
     },
     {
       "tpl": "59e6918f86f7746c9f75e849",
@@ -1069,9 +1069,9 @@
       "short": "RRLP",
       "caliber": "Caliber556x45NATO",
       "projectileCount": 1,
-      "damagePerProjectile": 64,
-      "damage": 64,
-      "penetration": 18
+      "damagePerProjectile": 55,
+      "damage": 55,
+      "penetration": 37
     },
     {
       "tpl": "6241c316234b593b5676b637",
@@ -1089,9 +1089,9 @@
       "short": "SS190",
       "caliber": "Caliber57x28",
       "projectileCount": 1,
-      "damagePerProjectile": 49,
-      "damage": 49,
-      "penetration": 22
+      "damagePerProjectile": 29,
+      "damage": 29,
+      "penetration": 41
     },
     {
       "tpl": "5cc80f67e4a949035e43bbba",
@@ -1099,9 +1099,9 @@
       "short": "SB193",
       "caliber": "Caliber57x28",
       "projectileCount": 1,
-      "damagePerProjectile": 59,
-      "damage": 59,
-      "penetration": 21
+      "damagePerProjectile": 26,
+      "damage": 26,
+      "penetration": 40
     },
     {
       "tpl": "5cc80f53e4a949000e1ea4f8",
@@ -1109,9 +1109,9 @@
       "short": "L191",
       "caliber": "Caliber57x28",
       "projectileCount": 1,
-      "damagePerProjectile": 53,
-      "damage": 53,
-      "penetration": 20
+      "damagePerProjectile": 33,
+      "damage": 33,
+      "penetration": 38
     },
     {
       "tpl": "5cc86832d7f00c000d3a6e6c",
@@ -1119,9 +1119,9 @@
       "short": "R37.F",
       "caliber": "Caliber57x28",
       "projectileCount": 1,
-      "damagePerProjectile": 98,
-      "damage": 98,
-      "penetration": 19
+      "damagePerProjectile": 37,
+      "damage": 37,
+      "penetration": 37
     },
     {
       "tpl": "5cc86840d7f00c002412c56c",
@@ -1129,9 +1129,9 @@
       "short": "R37.X",
       "caliber": "Caliber57x28",
       "projectileCount": 1,
-      "damagePerProjectile": 81,
-      "damage": 81,
-      "penetration": 18
+      "damagePerProjectile": 39,
+      "damage": 39,
+      "penetration": 35
     },
     {
       "tpl": "5cc80f79e4a949033c7343b2",
@@ -1139,9 +1139,9 @@
       "short": "SS198LF",
       "caliber": "Caliber57x28",
       "projectileCount": 1,
-      "damagePerProjectile": 70,
-      "damage": 70,
-      "penetration": 16
+      "damagePerProjectile": 33,
+      "damage": 33,
+      "penetration": 31
     },
     {
       "tpl": "5cc80f8fe4a949033b0224a2",
@@ -1149,9 +1149,9 @@
       "short": "SS197SR",
       "caliber": "Caliber57x28",
       "projectileCount": 1,
-      "damagePerProjectile": 62,
-      "damage": 62,
-      "penetration": 14
+      "damagePerProjectile": 45,
+      "damage": 45,
+      "penetration": 23
     },
     {
       "tpl": "6529243824cbe3c74a05e5c1",
@@ -1159,9 +1159,9 @@
       "short": "Hybrid",
       "caliber": "Caliber68x51",
       "projectileCount": 1,
-      "damagePerProjectile": 72,
-      "damage": 72,
-      "penetration": 47
+      "damagePerProjectile": 106,
+      "damage": 106,
+      "penetration": 57
     },
     {
       "tpl": "6529302b8c26af6326029fb7",
@@ -1169,9 +1169,9 @@
       "short": "FMJ",
       "caliber": "Caliber68x51",
       "projectileCount": 1,
-      "damagePerProjectile": 80,
-      "damage": 80,
-      "penetration": 36
+      "damagePerProjectile": 90,
+      "damage": 90,
+      "penetration": 50
     },
     {
       "tpl": "67446fdd752be02c220f27b3",
@@ -1189,9 +1189,9 @@
       "short": "Pst",
       "caliber": "Caliber762x25TT",
       "projectileCount": 1,
-      "damagePerProjectile": 50,
-      "damage": 50,
-      "penetration": 19
+      "damagePerProjectile": 37,
+      "damage": 37,
+      "penetration": 38
     },
     {
       "tpl": "573602322459776445391df1",
@@ -1199,9 +1199,9 @@
       "short": "LRNPC",
       "caliber": "Caliber762x25TT",
       "projectileCount": 1,
-      "damagePerProjectile": 66,
-      "damage": 66,
-      "penetration": 18
+      "damagePerProjectile": 42,
+      "damage": 42,
+      "penetration": 31
     },
     {
       "tpl": "573601b42459776410737435",
@@ -1209,9 +1209,9 @@
       "short": "LRN",
       "caliber": "Caliber762x25TT",
       "projectileCount": 1,
-      "damagePerProjectile": 64,
-      "damage": 64,
-      "penetration": 17
+      "damagePerProjectile": 45,
+      "damage": 45,
+      "penetration": 29
     },
     {
       "tpl": "5736026a245977644601dc61",
@@ -1219,9 +1219,9 @@
       "short": "P",
       "caliber": "Caliber762x25TT",
       "projectileCount": 1,
-      "damagePerProjectile": 58,
-      "damage": 58,
-      "penetration": 16
+      "damagePerProjectile": 39,
+      "damage": 39,
+      "penetration": 28
     },
     {
       "tpl": "5735fdcd2459776445391d61",
@@ -1229,9 +1229,9 @@
       "short": "AKBS",
       "caliber": "Caliber762x25TT",
       "projectileCount": 1,
-      "damagePerProjectile": 58,
-      "damage": 58,
-      "penetration": 15
+      "damagePerProjectile": 51,
+      "damage": 51,
+      "penetration": 24
     },
     {
       "tpl": "573603c924597764442bd9cb",
@@ -1239,9 +1239,9 @@
       "short": "PT",
       "caliber": "Caliber762x25TT",
       "projectileCount": 1,
-      "damagePerProjectile": 55,
-      "damage": 55,
-      "penetration": 14
+      "damagePerProjectile": 41,
+      "damage": 41,
+      "penetration": 23
     },
     {
       "tpl": "5735ff5c245977640e39ba7e",
@@ -1249,9 +1249,9 @@
       "short": "FMJ43",
       "caliber": "Caliber762x25TT",
       "projectileCount": 1,
-      "damagePerProjectile": 60,
-      "damage": 60,
-      "penetration": 9
+      "damagePerProjectile": 54,
+      "damage": 54,
+      "penetration": 21
     },
     {
       "tpl": "64b8725c4b75259c590fa899",
@@ -1259,9 +1259,9 @@
       "short": "CBJ",
       "caliber": "Caliber762x35",
       "projectileCount": 1,
-      "damagePerProjectile": 61,
-      "damage": 61,
-      "penetration": 37.00929782082325
+      "damagePerProjectile": 52,
+      "damage": 52,
+      "penetration": 47
     },
     {
       "tpl": "5fd20ff893a8961fc660a954",
@@ -1269,9 +1269,9 @@
       "short": "AP",
       "caliber": "Caliber762x35",
       "projectileCount": 1,
-      "damagePerProjectile": 65,
-      "damage": 65,
-      "penetration": 33.981404358353515
+      "damagePerProjectile": 55,
+      "damage": 55,
+      "penetration": 45
     },
     {
       "tpl": "619636be6db0f2477964e710",
@@ -1279,9 +1279,9 @@
       "short": "M62",
       "caliber": "Caliber762x35",
       "projectileCount": 1,
-      "damagePerProjectile": 66,
-      "damage": 66,
-      "penetration": 29
+      "damagePerProjectile": 57,
+      "damage": 57,
+      "penetration": 42
     },
     {
       "tpl": "5fbe3ffdf8b6a877a729ea82",
@@ -1289,9 +1289,9 @@
       "short": "BCP FMJ",
       "caliber": "Caliber762x35",
       "projectileCount": 1,
-      "damagePerProjectile": 69,
-      "damage": 69,
-      "penetration": 27
+      "damagePerProjectile": 59,
+      "damage": 59,
+      "penetration": 41
     },
     {
       "tpl": "6196364158ef8c428c287d9f",
@@ -1299,9 +1299,9 @@
       "short": "V-Max",
       "caliber": "Caliber762x35",
       "projectileCount": 1,
-      "damagePerProjectile": 99,
-      "damage": 99,
-      "penetration": 25
+      "damagePerProjectile": 87,
+      "damage": 87,
+      "penetration": 37
     },
     {
       "tpl": "6196365d58ef8c428c287da1",
@@ -1309,9 +1309,9 @@
       "short": "Whisper",
       "caliber": "Caliber762x35",
       "projectileCount": 1,
-      "damagePerProjectile": 54,
-      "damage": 54,
-      "penetration": 17
+      "damagePerProjectile": 46,
+      "damage": 46,
+      "penetration": 30
     },
     {
       "tpl": "601aa3d2b2bcb34913271e6d",
@@ -1319,9 +1319,9 @@
       "short": "MAI AP",
       "caliber": "Caliber762x39",
       "projectileCount": 1,
-      "damagePerProjectile": 61,
-      "damage": 61,
-      "penetration": 57
+      "damagePerProjectile": 52,
+      "damage": 52,
+      "penetration": 61
     },
     {
       "tpl": "59e0d99486f7744a32234762",
@@ -1329,9 +1329,9 @@
       "short": "BP",
       "caliber": "Caliber762x39",
       "projectileCount": 1,
-      "damagePerProjectile": 70,
-      "damage": 70,
-      "penetration": 46
+      "damagePerProjectile": 60,
+      "damage": 60,
+      "penetration": 54
     },
     {
       "tpl": "64b7af434b75259c590fa893",
@@ -1339,9 +1339,9 @@
       "short": "PP",
       "caliber": "Caliber762x39",
       "projectileCount": 1,
-      "damagePerProjectile": 72.9,
-      "damage": 72.9,
-      "penetration": 38
+      "damagePerProjectile": 62,
+      "damage": 62,
+      "penetration": 48
     },
     {
       "tpl": "5656d7c34bdc2d9d198b4587",
@@ -1349,9 +1349,9 @@
       "short": "PS",
       "caliber": "Caliber762x39",
       "projectileCount": 1,
-      "damagePerProjectile": 76,
-      "damage": 76,
-      "penetration": 35
+      "damagePerProjectile": 65,
+      "damage": 65,
+      "penetration": 46
     },
     {
       "tpl": "64b7af5a8532cf95ee0a0dbd",
@@ -1359,9 +1359,9 @@
       "short": "FMJ",
       "caliber": "Caliber762x39",
       "projectileCount": 1,
-      "damagePerProjectile": 82,
-      "damage": 82,
-      "penetration": 29.031123919308357
+      "damagePerProjectile": 71,
+      "damage": 71,
+      "penetration": 42
     },
     {
       "tpl": "64b7af734b75259c590fa895",
@@ -1369,9 +1369,9 @@
       "short": "SP",
       "caliber": "Caliber762x39",
       "projectileCount": 1,
-      "damagePerProjectile": 103,
-      "damage": 103,
-      "penetration": 27.9521613832853
+      "damagePerProjectile": 90,
+      "damage": 90,
+      "penetration": 41
     },
     {
       "tpl": "59e4cf5286f7741778269d8a",
@@ -1379,9 +1379,9 @@
       "short": "T-45M1",
       "caliber": "Caliber762x39",
       "projectileCount": 1,
-      "damagePerProjectile": 78,
-      "damage": 78,
-      "penetration": 27.9521613832853
+      "damagePerProjectile": 68,
+      "damage": 68,
+      "penetration": 41
     },
     {
       "tpl": "59e4d3d286f774176a36250a",
@@ -1389,9 +1389,9 @@
       "short": "HP",
       "caliber": "Caliber762x39",
       "projectileCount": 1,
-      "damagePerProjectile": 110,
-      "damage": 110,
-      "penetration": 26
+      "damagePerProjectile": 96,
+      "damage": 96,
+      "penetration": 40
     },
     {
       "tpl": "59e4d24686f7741776641ac7",
@@ -1399,9 +1399,9 @@
       "short": "US",
       "caliber": "Caliber762x39",
       "projectileCount": 1,
-      "damagePerProjectile": 53,
-      "damage": 53,
-      "penetration": 20
+      "damagePerProjectile": 45,
+      "damage": 45,
+      "penetration": 34
     },
     {
       "tpl": "5efb0c1bd79ff02a1f5e68d9",
@@ -1409,19 +1409,9 @@
       "short": "M993",
       "caliber": "Caliber762x51",
       "projectileCount": 1,
-      "damagePerProjectile": 70,
-      "damage": 70,
-      "penetration": 65
-    },
-    {
-      "tpl": "5a6086ea4f39f99cd479502f",
-      "name": "7.62x51mm M61",
-      "short": "M61",
-      "caliber": "Caliber762x51",
-      "projectileCount": 1,
-      "damagePerProjectile": 75,
-      "damage": 75,
-      "penetration": 55
+      "damagePerProjectile": 83,
+      "damage": 83,
+      "penetration": 72
     },
     {
       "tpl": "6768c25aa7b238f14a08d3f6",
@@ -1429,9 +1419,19 @@
       "short": "M80A1",
       "caliber": "Caliber762x51",
       "projectileCount": 1,
-      "damagePerProjectile": 73,
-      "damage": 73,
-      "penetration": 51
+      "damagePerProjectile": 98,
+      "damage": 98,
+      "penetration": 64
+    },
+    {
+      "tpl": "5a6086ea4f39f99cd479502f",
+      "name": "7.62x51mm M61",
+      "short": "M61",
+      "caliber": "Caliber762x51",
+      "projectileCount": 1,
+      "damagePerProjectile": 87,
+      "damage": 87,
+      "penetration": 61
     },
     {
       "tpl": "58dd3ad986f77403051cba8f",
@@ -1439,9 +1439,9 @@
       "short": "M80",
       "caliber": "Caliber762x51",
       "projectileCount": 1,
-      "damagePerProjectile": 80,
-      "damage": 80,
-      "penetration": 31
+      "damagePerProjectile": 92,
+      "damage": 92,
+      "penetration": 47
     },
     {
       "tpl": "5a608bf24f39f98ffc77720e",
@@ -1449,9 +1449,9 @@
       "short": "M62",
       "caliber": "Caliber762x51",
       "projectileCount": 1,
-      "damagePerProjectile": 82,
-      "damage": 82,
-      "penetration": 30
+      "damagePerProjectile": 94,
+      "damage": 94,
+      "penetration": 46
     },
     {
       "tpl": "5e023e53d4353e3302577c4c",
@@ -1459,9 +1459,9 @@
       "short": "BCP FMJ",
       "caliber": "Caliber762x51",
       "projectileCount": 1,
-      "damagePerProjectile": 83,
-      "damage": 83,
-      "penetration": 24
+      "damagePerProjectile": 95,
+      "damage": 95,
+      "penetration": 42
     },
     {
       "tpl": "5e023e88277cce2b522ff2b1",
@@ -1469,9 +1469,9 @@
       "short": "Ultra Nosler",
       "caliber": "Caliber762x51",
       "projectileCount": 1,
-      "damagePerProjectile": 105,
-      "damage": 105,
-      "penetration": 22
+      "damagePerProjectile": 117,
+      "damage": 117,
+      "penetration": 41
     },
     {
       "tpl": "5e023e6e34d52a55c3304f71",
@@ -1479,9 +1479,9 @@
       "short": "TCW SP",
       "caliber": "Caliber762x51",
       "projectileCount": 1,
-      "damagePerProjectile": 85,
-      "damage": 85,
-      "penetration": 21
+      "damagePerProjectile": 103,
+      "damage": 103,
+      "penetration": 40
     },
     {
       "tpl": "5e023d48186a883be655e551",
@@ -1489,9 +1489,9 @@
       "short": "BS",
       "caliber": "Caliber762x54R",
       "projectileCount": 1,
-      "damagePerProjectile": 72,
-      "damage": 72,
-      "penetration": 58
+      "damagePerProjectile": 84,
+      "damage": 84,
+      "penetration": 67
     },
     {
       "tpl": "560d61e84bdc2da74d8b4571",
@@ -1499,9 +1499,9 @@
       "short": "SNB",
       "caliber": "Caliber762x54R",
       "projectileCount": 1,
-      "damagePerProjectile": 75,
-      "damage": 75,
-      "penetration": 55
+      "damagePerProjectile": 94,
+      "damage": 94,
+      "penetration": 65
     },
     {
       "tpl": "5e023d34e8a400319a28ed44",
@@ -1509,9 +1509,9 @@
       "short": "BT",
       "caliber": "Caliber762x54R",
       "projectileCount": 1,
-      "damagePerProjectile": 78,
-      "damage": 78,
-      "penetration": 43
+      "damagePerProjectile": 87,
+      "damage": 87,
+      "penetration": 57
     },
     {
       "tpl": "59e77a2386f7742ee578960a",
@@ -1519,9 +1519,9 @@
       "short": "PS",
       "caliber": "Caliber762x54R",
       "projectileCount": 1,
-      "damagePerProjectile": 84,
-      "damage": 84,
-      "penetration": 41
+      "damagePerProjectile": 89,
+      "damage": 89,
+      "penetration": 55
     },
     {
       "tpl": "5887431f2459777e1612938f",
@@ -1529,9 +1529,9 @@
       "short": "LPS",
       "caliber": "Caliber762x54R",
       "projectileCount": 1,
-      "damagePerProjectile": 81,
-      "damage": 81,
-      "penetration": 37
+      "damagePerProjectile": 90,
+      "damage": 90,
+      "penetration": 52
     },
     {
       "tpl": "5e023cf8186a883be655e54f",
@@ -1539,19 +1539,9 @@
       "short": "T-46M",
       "caliber": "Caliber762x54R",
       "projectileCount": 1,
-      "damagePerProjectile": 82,
-      "damage": 82,
-      "penetration": 27
-    },
-    {
-      "tpl": "64b8f7968532cf95ee0a0dbf",
-      "name": "7.62x54mm R FMJ",
-      "short": "FMJ",
-      "caliber": "Caliber762x54R",
-      "projectileCount": 1,
-      "damagePerProjectile": 84,
-      "damage": 84,
-      "penetration": 26
+      "damagePerProjectile": 92,
+      "damage": 92,
+      "penetration": 45
     },
     {
       "tpl": "64b8f7b5389d7ffd620ccba2",
@@ -1559,9 +1549,19 @@
       "short": "SP BT",
       "caliber": "Caliber762x54R",
       "projectileCount": 1,
-      "damagePerProjectile": 92,
-      "damage": 92,
-      "penetration": 25
+      "damagePerProjectile": 106,
+      "damage": 106,
+      "penetration": 44
+    },
+    {
+      "tpl": "64b8f7968532cf95ee0a0dbf",
+      "name": "7.62x54mm R FMJ",
+      "short": "FMJ",
+      "caliber": "Caliber762x54R",
+      "projectileCount": 1,
+      "damagePerProjectile": 94,
+      "damage": 94,
+      "penetration": 44
     },
     {
       "tpl": "64b8f7c241772715af0f9c3d",
@@ -1569,9 +1569,9 @@
       "short": "HP BT",
       "caliber": "Caliber762x54R",
       "projectileCount": 1,
-      "damagePerProjectile": 102,
-      "damage": 102,
-      "penetration": 23
+      "damagePerProjectile": 117,
+      "damage": 117,
+      "penetration": 42
     },
     {
       "tpl": "5fc382a9d724d907e2077dab",
@@ -1579,9 +1579,9 @@
       "short": "AP",
       "caliber": "Caliber86x70",
       "projectileCount": 1,
-      "damagePerProjectile": 103,
-      "damage": 103,
-      "penetration": 79
+      "damagePerProjectile": 113,
+      "damage": 113,
+      "penetration": 88
     },
     {
       "tpl": "5fc275cf85fd526b824a571a",
@@ -1589,9 +1589,9 @@
       "short": "FMJ",
       "caliber": "Caliber86x70",
       "projectileCount": 1,
-      "damagePerProjectile": 122,
-      "damage": 122,
-      "penetration": 47
+      "damagePerProjectile": 136,
+      "damage": 136,
+      "penetration": 65
     },
     {
       "tpl": "5fc382b6d6fa9c00c571bbc3",
@@ -1599,9 +1599,9 @@
       "short": "TAC-X",
       "caliber": "Caliber86x70",
       "projectileCount": 1,
-      "damagePerProjectile": 196,
-      "damage": 196,
-      "penetration": 38
+      "damagePerProjectile": 164,
+      "damage": 164,
+      "penetration": 57
     },
     {
       "tpl": "5fc382c1016cce60e8341b20",
@@ -1609,9 +1609,9 @@
       "short": "UCW",
       "caliber": "Caliber86x70",
       "projectileCount": 1,
-      "damagePerProjectile": 142,
-      "damage": 142,
-      "penetration": 36
+      "damagePerProjectile": 147,
+      "damage": 147,
+      "penetration": 54
     },
     {
       "tpl": "5996f6d686f77467977ba6cc",
@@ -1629,9 +1629,49 @@
       "short": "PstM",
       "caliber": "Caliber9x18PM",
       "projectileCount": 1,
-      "damagePerProjectile": 58,
-      "damage": 58,
-      "penetration": 19
+      "damagePerProjectile": 45,
+      "damage": 45,
+      "penetration": 38
+    },
+    {
+      "tpl": "573719df2459775a626ccbc2",
+      "name": "9x18mm PM PBM gzh",
+      "short": "PBM",
+      "caliber": "Caliber9x18PM",
+      "projectileCount": 1,
+      "damagePerProjectile": 33,
+      "damage": 33,
+      "penetration": 33
+    },
+    {
+      "tpl": "573718ba2459775a75491131",
+      "name": "9x18mm PM BZhT gzh",
+      "short": "BZhT",
+      "caliber": "Caliber9x18PM",
+      "projectileCount": 1,
+      "damagePerProjectile": 34,
+      "damage": 34,
+      "penetration": 29
+    },
+    {
+      "tpl": "573720e02459776143012541",
+      "name": "9x18mm PM RG028 gzh",
+      "short": "RG028",
+      "caliber": "Caliber9x18PM",
+      "projectileCount": 1,
+      "damagePerProjectile": 37,
+      "damage": 37,
+      "penetration": 26
+    },
+    {
+      "tpl": "5737201124597760fc4431f1",
+      "name": "9x18mm PM Pst gzh",
+      "short": "Pst",
+      "caliber": "Caliber9x18PM",
+      "projectileCount": 1,
+      "damagePerProjectile": 29,
+      "damage": 29,
+      "penetration": 21
     },
     {
       "tpl": "66ec2aa6daf127599c0c31f1",
@@ -1644,26 +1684,6 @@
       "penetration": 17
     },
     {
-      "tpl": "573719df2459775a626ccbc2",
-      "name": "9x18mm PM PBM gzh",
-      "short": "PBM",
-      "caliber": "Caliber9x18PM",
-      "projectileCount": 1,
-      "damagePerProjectile": 40,
-      "damage": 40,
-      "penetration": 17
-    },
-    {
-      "tpl": "573718ba2459775a75491131",
-      "name": "9x18mm PM BZhT gzh",
-      "short": "BZhT",
-      "caliber": "Caliber9x18PM",
-      "projectileCount": 1,
-      "damagePerProjectile": 53,
-      "damage": 53,
-      "penetration": 16
-    },
-    {
       "tpl": "5943d9c186f7745a13413ac9",
       "name": "Shrapnel",
       "short": "Shrapnel",
@@ -1672,6 +1692,16 @@
       "damagePerProjectile": 20,
       "damage": 20,
       "penetration": 16
+    },
+    {
+      "tpl": "57372140245977611f70ee91",
+      "name": "9x18mm PM SP7 gzh",
+      "short": "SP7",
+      "caliber": "Caliber9x18PM",
+      "projectileCount": 1,
+      "damagePerProjectile": 49,
+      "damage": 49,
+      "penetration": 15
     },
     {
       "tpl": "63b35f281745dd52341e5da7",
@@ -1694,24 +1724,44 @@
       "penetration": 15
     },
     {
-      "tpl": "573720e02459776143012541",
-      "name": "9x18mm PM RG028 gzh",
-      "short": "RG028",
+      "tpl": "57371f2b24597761224311f1",
+      "name": "9x18mm PM PS gs PPO",
+      "short": "PS PPO",
       "caliber": "Caliber9x18PM",
       "projectileCount": 1,
-      "damagePerProjectile": 65,
-      "damage": 65,
+      "damagePerProjectile": 38,
+      "damage": 38,
+      "penetration": 15
+    },
+    {
+      "tpl": "57371f8d24597761006c6a81",
+      "name": "9x18mm PM PSO gzh",
+      "short": "PSO",
+      "caliber": "Caliber9x18PM",
+      "projectileCount": 1,
+      "damagePerProjectile": 28,
+      "damage": 28,
+      "penetration": 15
+    },
+    {
+      "tpl": "57371e4124597760ff7b25f1",
+      "name": "9x18mm PM PPT gzh",
+      "short": "PPT",
+      "caliber": "Caliber9x18PM",
+      "projectileCount": 1,
+      "damagePerProjectile": 27,
+      "damage": 27,
       "penetration": 14
     },
     {
-      "tpl": "5737201124597760fc4431f1",
-      "name": "9x18mm PM Pst gzh",
-      "short": "Pst",
+      "tpl": "573719762459775a626ccbc1",
+      "name": "9x18mm PM P gzh",
+      "short": "P",
       "caliber": "Caliber9x18PM",
       "projectileCount": 1,
-      "damagePerProjectile": 50,
-      "damage": 50,
-      "penetration": 12
+      "damagePerProjectile": 27,
+      "damage": 27,
+      "penetration": 13
     },
     {
       "tpl": "5996f6fc86f7745e585b4de3",
@@ -1724,6 +1774,26 @@
       "penetration": 12
     },
     {
+      "tpl": "57371b192459775a9f58a5e0",
+      "name": "9x18mm PM PPe gzh",
+      "short": "PPe",
+      "caliber": "Caliber9x18PM",
+      "projectileCount": 1,
+      "damagePerProjectile": 45,
+      "damage": 45,
+      "penetration": 11
+    },
+    {
+      "tpl": "5737207f24597760ff7b25f2",
+      "name": "9x18mm PM PSV",
+      "short": "PSV",
+      "caliber": "Caliber9x18PM",
+      "projectileCount": 1,
+      "damagePerProjectile": 35,
+      "damage": 35,
+      "penetration": 11
+    },
+    {
       "tpl": "5996f6cb86f774678763a6ca",
       "name": "RGD-5 Shrapnel",
       "short": "RGD-5 Shrapnel",
@@ -1734,84 +1804,24 @@
       "penetration": 10
     },
     {
-      "tpl": "57371f2b24597761224311f1",
-      "name": "9x18mm PM PS gs PPO",
-      "short": "PS PPO",
-      "caliber": "Caliber9x18PM",
-      "projectileCount": 1,
-      "damagePerProjectile": 55,
-      "damage": 55,
-      "penetration": 8
-    },
-    {
-      "tpl": "57372140245977611f70ee91",
-      "name": "9x18mm PM SP7 gzh",
-      "short": "SP7",
-      "caliber": "Caliber9x18PM",
-      "projectileCount": 1,
-      "damagePerProjectile": 77,
-      "damage": 77,
-      "penetration": 7
-    },
-    {
-      "tpl": "57371f8d24597761006c6a81",
-      "name": "9x18mm PM PSO gzh",
-      "short": "PSO",
-      "caliber": "Caliber9x18PM",
-      "projectileCount": 1,
-      "damagePerProjectile": 54,
-      "damage": 54,
-      "penetration": 7
-    },
-    {
-      "tpl": "57371e4124597760ff7b25f1",
-      "name": "9x18mm PM PPT gzh",
-      "short": "PPT",
-      "caliber": "Caliber9x18PM",
-      "projectileCount": 1,
-      "damagePerProjectile": 59,
-      "damage": 59,
-      "penetration": 6
-    },
-    {
-      "tpl": "573719762459775a626ccbc1",
-      "name": "9x18mm PM P gzh",
-      "short": "P",
-      "caliber": "Caliber9x18PM",
-      "projectileCount": 1,
-      "damagePerProjectile": 50,
-      "damage": 50,
-      "penetration": 5
-    },
-    {
-      "tpl": "5737207f24597760ff7b25f2",
-      "name": "9x18mm PM PSV",
-      "short": "PSV",
-      "caliber": "Caliber9x18PM",
-      "projectileCount": 1,
-      "damagePerProjectile": 69,
-      "damage": 69,
-      "penetration": 4
-    },
-    {
-      "tpl": "57371b192459775a9f58a5e0",
-      "name": "9x18mm PM PPe gzh",
-      "short": "PPe",
-      "caliber": "Caliber9x18PM",
-      "projectileCount": 1,
-      "damagePerProjectile": 61,
-      "damage": 61,
-      "penetration": 4
-    },
-    {
       "tpl": "5737218f245977612125ba51",
       "name": "9x18mm PM SP8 gzh",
       "short": "SP8",
       "caliber": "Caliber9x18PM",
       "projectileCount": 1,
-      "damagePerProjectile": 67,
-      "damage": 67,
-      "penetration": 3
+      "damagePerProjectile": 37,
+      "damage": 37,
+      "penetration": 9
+    },
+    {
+      "tpl": "57371eb62459776125652ac1",
+      "name": "9x18mm PM PRS gs",
+      "short": "PRS",
+      "caliber": "Caliber9x18PM",
+      "projectileCount": 1,
+      "damagePerProjectile": 27,
+      "damage": 27,
+      "penetration": 5
     },
     {
       "tpl": "67654a6759116d347b0bfb86",
@@ -1824,24 +1834,14 @@
       "penetration": 3
     },
     {
-      "tpl": "57371eb62459776125652ac1",
-      "name": "9x18mm PM PRS gs",
-      "short": "PRS",
-      "caliber": "Caliber9x18PM",
-      "projectileCount": 1,
-      "damagePerProjectile": 58,
-      "damage": 58,
-      "penetration": 1
-    },
-    {
       "tpl": "5efb0da7a29a85116f6ea05f",
       "name": "9x19mm PBP gzh",
       "short": "PBP",
       "caliber": "Caliber9x19PARA",
       "projectileCount": 1,
-      "damagePerProjectile": 44,
-      "damage": 44,
-      "penetration": 39
+      "damagePerProjectile": 33,
+      "damage": 33,
+      "penetration": 49
     },
     {
       "tpl": "5c925fa22e221601da359b7b",
@@ -1849,9 +1849,9 @@
       "short": "AP 6.3",
       "caliber": "Caliber9x19PARA",
       "projectileCount": 1,
-      "damagePerProjectile": 52,
-      "damage": 52,
-      "penetration": 30
+      "damagePerProjectile": 39,
+      "damage": 39,
+      "penetration": 45
     },
     {
       "tpl": "56d59d3ad2720bdb418b4577",
@@ -1859,9 +1859,9 @@
       "short": "Pst",
       "caliber": "Caliber9x19PARA",
       "projectileCount": 1,
-      "damagePerProjectile": 54,
-      "damage": 54,
-      "penetration": 20
+      "damagePerProjectile": 36,
+      "damage": 36,
+      "penetration": 40
     },
     {
       "tpl": "64b7bbb74b75259c590fa897",
@@ -1869,9 +1869,9 @@
       "short": "M882",
       "caliber": "Caliber9x19PARA",
       "projectileCount": 1,
-      "damagePerProjectile": 56,
-      "damage": 56,
-      "penetration": 18
+      "damagePerProjectile": 41,
+      "damage": 41,
+      "penetration": 30
     },
     {
       "tpl": "5c0d56a986f774449d5de529",
@@ -1879,9 +1879,9 @@
       "short": "RIP",
       "caliber": "Caliber9x19PARA",
       "projectileCount": 1,
-      "damagePerProjectile": 102,
-      "damage": 102,
-      "penetration": 15
+      "damagePerProjectile": 47,
+      "damage": 47,
+      "penetration": 26
     },
     {
       "tpl": "5a3c16fe86f77452b62de32a",
@@ -1889,9 +1889,9 @@
       "short": "Luger CCI",
       "caliber": "Caliber9x19PARA",
       "projectileCount": 1,
-      "damagePerProjectile": 70,
-      "damage": 70,
-      "penetration": 10
+      "damagePerProjectile": 49,
+      "damage": 49,
+      "penetration": 19
     },
     {
       "tpl": "58864a4f2459770fcc257101",
@@ -1899,9 +1899,9 @@
       "short": "PSO",
       "caliber": "Caliber9x19PARA",
       "projectileCount": 1,
-      "damagePerProjectile": 59,
-      "damage": 59,
-      "penetration": 10
+      "damagePerProjectile": 33,
+      "damage": 33,
+      "penetration": 18
     },
     {
       "tpl": "5c3df7d588a4501f290594e5",
@@ -1909,9 +1909,9 @@
       "short": "GT",
       "caliber": "Caliber9x19PARA",
       "projectileCount": 1,
-      "damagePerProjectile": 58,
-      "damage": 58,
-      "penetration": 10
+      "damagePerProjectile": 33,
+      "damage": 33,
+      "penetration": 16
     },
     {
       "tpl": "5efb0e16aeb21837e749c7ff",
@@ -1919,19 +1919,9 @@
       "short": "QuakeMaker",
       "caliber": "Caliber9x19PARA",
       "projectileCount": 1,
-      "damagePerProjectile": 85,
-      "damage": 85,
-      "penetration": 8
-    },
-    {
-      "tpl": "5a26ac0ec4a28200741e1e18",
-      "name": "9x21mm BT gzh",
-      "short": "BT",
-      "caliber": "Caliber9x21",
-      "projectileCount": 1,
-      "damagePerProjectile": 52,
-      "damage": 52,
-      "penetration": 32
+      "damagePerProjectile": 51,
+      "damage": 51,
+      "penetration": 15
     },
     {
       "tpl": "6576f4708ca9c4381d16cd9d",
@@ -1939,9 +1929,19 @@
       "short": "7N42",
       "caliber": "Caliber9x21",
       "projectileCount": 1,
-      "damagePerProjectile": 49,
-      "damage": 49,
-      "penetration": 25
+      "damagePerProjectile": 43,
+      "damage": 43,
+      "penetration": 46
+    },
+    {
+      "tpl": "5a26ac0ec4a28200741e1e18",
+      "name": "9x21mm BT gzh",
+      "short": "BT",
+      "caliber": "Caliber9x21",
+      "projectileCount": 1,
+      "damagePerProjectile": 39,
+      "damage": 39,
+      "penetration": 43
     },
     {
       "tpl": "5a269f97c4a282000b151807",
@@ -1949,9 +1949,9 @@
       "short": "PS",
       "caliber": "Caliber9x21",
       "projectileCount": 1,
-      "damagePerProjectile": 59,
-      "damage": 59,
-      "penetration": 20
+      "damagePerProjectile": 41,
+      "damage": 41,
+      "penetration": 40
     },
     {
       "tpl": "6576f93989f0062e741ba952",
@@ -1959,9 +1959,9 @@
       "short": "7U4",
       "caliber": "Caliber9x21",
       "projectileCount": 1,
-      "damagePerProjectile": 53,
-      "damage": 53,
-      "penetration": 18
+      "damagePerProjectile": 37,
+      "damage": 37,
+      "penetration": 36
     },
     {
       "tpl": "5a26abfac4a28232980eabff",
@@ -1969,9 +1969,9 @@
       "short": "P",
       "caliber": "Caliber9x21",
       "projectileCount": 1,
-      "damagePerProjectile": 65,
-      "damage": 65,
-      "penetration": 17
+      "damagePerProjectile": 45,
+      "damage": 45,
+      "penetration": 34
     },
     {
       "tpl": "5a26ac06c4a282000c5a90a8",
@@ -1979,9 +1979,9 @@
       "short": "PE",
       "caliber": "Caliber9x21",
       "projectileCount": 1,
-      "damagePerProjectile": 80,
-      "damage": 80,
-      "penetration": 15
+      "damagePerProjectile": 52,
+      "damage": 52,
+      "penetration": 30
     },
     {
       "tpl": "62330b3ed4dc74626d570b95",
@@ -1989,9 +1989,9 @@
       "short": "FMJ",
       "caliber": "Caliber9x33R",
       "projectileCount": 1,
-      "damagePerProjectile": 70,
-      "damage": 70,
-      "penetration": 18
+      "damagePerProjectile": 68,
+      "damage": 68,
+      "penetration": 35
     },
     {
       "tpl": "62330c18744e5e31df12f516",
@@ -1999,9 +1999,9 @@
       "short": "JHP",
       "caliber": "Caliber9x33R",
       "projectileCount": 1,
-      "damagePerProjectile": 88,
-      "damage": 88,
-      "penetration": 17
+      "damagePerProjectile": 94,
+      "damage": 94,
+      "penetration": 33
     },
     {
       "tpl": "62330c40bdd19b369e1e53d1",
@@ -2009,9 +2009,9 @@
       "short": "SP",
       "caliber": "Caliber9x33R",
       "projectileCount": 1,
-      "damagePerProjectile": 108,
-      "damage": 108,
-      "penetration": 16
+      "damagePerProjectile": 83,
+      "damage": 83,
+      "penetration": 31
     },
     {
       "tpl": "62330bfadc5883093563729b",
@@ -2019,9 +2019,9 @@
       "short": "HP",
       "caliber": "Caliber9x33R",
       "projectileCount": 1,
-      "damagePerProjectile": 99,
-      "damage": 99,
-      "penetration": 15
+      "damagePerProjectile": 102,
+      "damage": 102,
+      "penetration": 29
     },
     {
       "tpl": "5c0d688c86f77413ae3407b2",
@@ -2029,29 +2029,9 @@
       "short": "BP",
       "caliber": "Caliber9x39",
       "projectileCount": 1,
-      "damagePerProjectile": 58,
-      "damage": 58,
-      "penetration": 54
-    },
-    {
-      "tpl": "57a0e5022459774d1673f889",
-      "name": "9x39mm SP-6 gs",
-      "short": "SP-6",
-      "caliber": "Caliber9x39",
-      "projectileCount": 1,
-      "damagePerProjectile": 60,
-      "damage": 60,
-      "penetration": 48
-    },
-    {
-      "tpl": "61962d879bb3d20b0946d385",
-      "name": "9x39mm PAB-9 gs",
-      "short": "PAB-9",
-      "caliber": "Caliber9x39",
-      "projectileCount": 1,
-      "damagePerProjectile": 62,
-      "damage": 62,
-      "penetration": 43
+      "damagePerProjectile": 51,
+      "damage": 51,
+      "penetration": 51
     },
     {
       "tpl": "5c0d668f86f7747ccb7f13b2",
@@ -2059,9 +2039,29 @@
       "short": "SPP",
       "caliber": "Caliber9x39",
       "projectileCount": 1,
-      "damagePerProjectile": 68,
-      "damage": 68,
-      "penetration": 35
+      "damagePerProjectile": 52,
+      "damage": 52,
+      "penetration": 49
+    },
+    {
+      "tpl": "57a0e5022459774d1673f889",
+      "name": "9x39mm SP-6 gs",
+      "short": "SP-6",
+      "caliber": "Caliber9x39",
+      "projectileCount": 1,
+      "damagePerProjectile": 55,
+      "damage": 55,
+      "penetration": 47
+    },
+    {
+      "tpl": "61962d879bb3d20b0946d385",
+      "name": "9x39mm PAB-9 gs",
+      "short": "PAB-9",
+      "caliber": "Caliber9x39",
+      "projectileCount": 1,
+      "damagePerProjectile": 49,
+      "damage": 49,
+      "penetration": 44
     },
     {
       "tpl": "57a0dfb82459774d3078b56c",
@@ -2069,9 +2069,9 @@
       "short": "SP-5",
       "caliber": "Caliber9x39",
       "projectileCount": 1,
-      "damagePerProjectile": 71,
-      "damage": 71,
-      "penetration": 28
+      "damagePerProjectile": 60,
+      "damage": 60,
+      "penetration": 38
     },
     {
       "tpl": "6576f96220d53a5b8f3e395e",
@@ -2079,9 +2079,9 @@
       "short": "FMJ",
       "caliber": "Caliber9x39",
       "projectileCount": 1,
-      "damagePerProjectile": 75,
-      "damage": 75,
-      "penetration": 17
+      "damagePerProjectile": 64,
+      "damage": 64,
+      "penetration": 31
     }
   ]
 }
