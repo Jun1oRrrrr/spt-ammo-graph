@@ -764,6 +764,35 @@ function realismDetailHtml(row) {
   return `<div class="realism-note"><b>Realism ${realismModeName(state.realismMode)}</b>${source} → 映射 ${displayNumber(point.x)} / ${displayNumber(point.y)}</div>`;
 }
 
+function positionPointPanel(panel, row) {
+  const wrap = document.getElementById('chartWrap');
+  const xScale = svg.__xScale && svg.__xScale.fn;
+  const yScale = svg.__yScale && svg.__yScale.fn;
+  if (!wrap || !xScale || !yScale) return;
+
+  const px = xScale(effectiveDamage(row));
+  const py = yScale(effectivePenetration(row));
+  if (!Number.isFinite(px) || !Number.isFinite(py)) return;
+
+  const edge = 10;
+  const gap = 14;
+  const panelWidth = panel.offsetWidth;
+  const panelHeight = panel.offsetHeight;
+  const wrapWidth = wrap.clientWidth;
+  const wrapHeight = wrap.clientHeight;
+
+  let left = px + gap;
+  if (left + panelWidth > wrapWidth - edge) left = px - panelWidth - gap;
+  left = Math.max(edge, Math.min(left, wrapWidth - panelWidth - edge));
+
+  let top = py - panelHeight - gap;
+  if (top < edge) top = py + gap;
+  top = Math.max(edge, Math.min(top, wrapHeight - panelHeight - edge));
+
+  panel.style.left = `${Math.round(left)}px`;
+  panel.style.top = `${Math.round(top)}px`;
+}
+
 function renderPointPanel() {
   const panel = document.getElementById('pointPanel');
   const row = DATA.rows.find((r) => r.tpl === selectedTpl);
@@ -826,6 +855,7 @@ function renderPointPanel() {
     ${realismDetailHtml(row)}
   `;
   panel.classList.remove('hidden');
+  positionPointPanel(panel, row);
 }
 
 function renderInspector() {
