@@ -375,7 +375,7 @@ input:focus {
   top: 12px;
   left: 12px;
   width: min(330px, calc(100% - 24px));
-  background: rgba(19, 26, 36, 0.26);
+  background: rgba(19, 26, 36, 0.18);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-left: 3px solid rgba(56, 189, 248, 0.78);
   border-radius: var(--radius);
@@ -464,7 +464,7 @@ input:focus {
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 6px;
-  background: rgba(13, 17, 23, 0.46);
+  background: rgba(13, 17, 23, 0.32);
   padding: 6px 9px 7px;
 }
 
