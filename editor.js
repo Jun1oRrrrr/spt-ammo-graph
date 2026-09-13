@@ -75,6 +75,8 @@ let editedMap = new Map();
 let originalMap = new Map();
 let searchTerm = '';
 let selectedTpl = null;
+let pointPanelTpl = null;
+let hoveredTpl = null;
 let dragState = null;
 let panState = null;
 let suppressChartClick = false;
@@ -636,7 +638,7 @@ function drawChart() {
     if (edited) {
       html += `<circle cx="${px}" cy="${py}" r="${radius + 2.4}" fill="none" stroke="#fbbf24" stroke-width="1.2" opacity="0.8"></circle>`;
     }
-    html += `<circle data-tpl="${r.tpl}" cx="${px}" cy="${py}" r="${radius}" fill="${color}" fill-opacity="${edited ? 0.9 : 0.75}" stroke="${selected ? '#ffffff' : color}" stroke-width="${selected ? 2 : 1.2}" data-edited="${edited ? '1' : '0'}"></circle>`;
+    html += `<circle data-tpl="${r.tpl}" cx="${px}" cy="${py}" r="${radius}" fill="${color}" fill-opacity="${edited ? 0.9 : 0.75}" stroke="${selected ? '#ffffff' : color}" stroke-width="${selected ? 2 : 1.2}" data-edited="${edited ? '1' : '0'}" style="--point-color:${color};--point-r:${radius}px"></circle>`;
   }
 
   html += `<line x1="${MARGIN.left}" y1="${height - MARGIN.bottom}" x2="${width - MARGIN.right}" y2="${height - MARGIN.bottom}" stroke="#7d8fa1" stroke-width="1.5"></line>`;
@@ -655,6 +657,16 @@ function drawChart() {
 
   svg.innerHTML = html;
   svg.querySelectorAll('circle, line, rect').forEach((el) => el.setAttribute('clip-path', 'url(#plotClip)'));
+  ensurePointHoverLabel();
+  if (hoveredTpl) {
+    const hoveredCircle = svg.querySelector(`circle[data-tpl="${hoveredTpl}"]`);
+    if (hoveredCircle) {
+      updatePointHoverLabel(hoveredCircle);
+    } else {
+      hoveredTpl = null;
+      hidePointHoverLabel();
+    }
+  }
   svg.__xScale = {
     fn: xScale,
     invert: state.logScale ? invertLog(ranges.x, innerW, MARGIN.left) : invertLinear(ranges.x, innerW, MARGIN.left),
@@ -671,6 +683,83 @@ function drawChart() {
   document.getElementById('selectionInfo').textContent = selectedTpl ? `已选 ${editedName(selectedTpl)}` : '未选中';
   renderPointPanel();
   updateLegend();
+}
+
+function ensurePointHoverLabel() {
+  let group = document.getElementById('pointHoverLabel');
+  if (group) return group;
+
+  const ns = 'http://www.w3.org/2000/svg';
+  group = document.createElementNS(ns, 'g');
+  group.id = 'pointHoverLabel';
+  group.setAttribute('class', 'point-hover-label');
+  group.setAttribute('aria-hidden', 'true');
+
+  const rect = document.createElementNS(ns, 'rect');
+  rect.setAttribute('rx', '5');
+  rect.setAttribute('height', '18');
+
+  const text = document.createElementNS(ns, 'text');
+  text.setAttribute('y', '12.5');
+
+  group.append(rect, text);
+  svg.append(group);
+  return group;
+}
+
+function updatePointHoverLabel(circle) {
+  const group = ensurePointHoverLabel();
+  const rect = group.querySelector('rect');
+  const text = group.querySelector('text');
+  const row = DATA.rows.find((r) => r.tpl === circle.dataset.tpl);
+  const label = row ? row.short || row.name : circle.dataset.tpl;
+  const paddingX = 6;
+  const labelHeight = 18;
+  const gap = 9;
+
+  text.textContent = label;
+  const labelWidth = Math.ceil(text.getBBox().width) + paddingX * 2;
+  const centerX = Number(circle.getAttribute('cx'));
+  const centerY = Number(circle.getAttribute('cy'));
+  const vb = svg.viewBox.baseVal;
+  const plotRight = vb.width - MARGIN.right;
+
+  let left = centerX + gap;
+  if (left + labelWidth > plotRight) left = centerX - labelWidth - gap;
+  left = Math.max(MARGIN.left + 2, Math.min(left, vb.width - labelWidth - 4));
+
+  let top = centerY - labelHeight - gap;
+  if (top < MARGIN.top + 2) top = centerY + gap;
+  top = Math.max(2, Math.min(top, vb.height - labelHeight - 2));
+
+  group.setAttribute('transform', `translate(${left.toFixed(1)} ${top.toFixed(1)})`);
+  group.style.setProperty('--label-color', circle.getAttribute('fill') || '#94a3b8');
+  rect.setAttribute('width', String(labelWidth));
+  text.setAttribute('x', String(paddingX));
+  group.classList.add('visible');
+}
+
+function hidePointHoverLabel() {
+  const group = document.getElementById('pointHoverLabel');
+  if (group) group.classList.remove('visible');
+}
+
+function onChartPointerOver(event) {
+  const circle = event.target.closest && event.target.closest('circle[data-tpl]');
+  if (!circle) return;
+  hoveredTpl = circle.dataset.tpl;
+  updatePointHoverLabel(circle);
+}
+
+function onChartPointerMove(event) {
+  const circle = event.target.closest && event.target.closest('circle[data-tpl]');
+  if (!circle) {
+    hoveredTpl = null;
+    hidePointHoverLabel();
+    return;
+  }
+  hoveredTpl = circle.dataset.tpl;
+  updatePointHoverLabel(circle);
 }
 
 function editedName(tpl) {
@@ -797,10 +886,13 @@ function renderPointPanel() {
   const panel = document.getElementById('pointPanel');
   const row = DATA.rows.find((r) => r.tpl === selectedTpl);
   if (!row) {
+    pointPanelTpl = null;
+    panel.classList.remove('panel-enter');
     panel.classList.add('hidden');
     panel.innerHTML = '';
     return;
   }
+  const shouldAnimate = pointPanelTpl !== row.tpl;
   const edit = editedMap.get(row.tpl);
   const d = effectiveDamage(row);
   const p = effectivePenetration(row);
@@ -856,6 +948,12 @@ function renderPointPanel() {
   `;
   panel.classList.remove('hidden');
   positionPointPanel(panel, row);
+  if (shouldAnimate) {
+    panel.classList.remove('panel-enter');
+    void panel.offsetWidth;
+    panel.classList.add('panel-enter');
+  }
+  pointPanelTpl = row.tpl;
 }
 
 function renderInspector() {
@@ -1558,6 +1656,12 @@ function setupEventListeners() {
   });
 
   svg.addEventListener('pointerdown', onPointerDown);
+  svg.addEventListener('pointerover', onChartPointerOver);
+  svg.addEventListener('pointermove', onChartPointerMove);
+  svg.addEventListener('pointerleave', () => {
+    hoveredTpl = null;
+    hidePointHoverLabel();
+  });
   svg.addEventListener('wheel', onWheelZoom, { passive: false });
   svg.addEventListener('contextmenu', (event) => event.preventDefault());
   window.addEventListener('pointermove', onPointerMove);
