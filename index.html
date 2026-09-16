@@ -23,9 +23,9 @@
 <main class="layout">
   <aside class="panel sidebar">
     <section class="panel-block">
-      <label class="field-label">口径</label>
+      <label class="field-label">分组</label>
       <div class="search-wrap">
-        <input id="caliberSearch" type="search" placeholder="搜索口径" autocomplete="off">
+        <input id="caliberSearch" type="search" placeholder="搜索分组" autocomplete="off">
         <button id="clearCaliberBtn" class="icon-btn" type="button" title="清空">×</button>
       </div>
       <div id="caliberList" class="chip-list"></div>
@@ -48,7 +48,7 @@
       <label class="field-label" for="realismMode">Realism 映射</label>
       <div class="segmented" id="realismMode" aria-label="Realism 映射模式">
         <button type="button" data-realism="off" class="active" aria-pressed="true">关闭</button>
-        <button type="button" data-realism="caliber" title="每个口径内部做区间映射">按口径映射</button>
+        <button type="button" data-realism="caliber" title="每个分组内部做区间映射">按分组映射</button>
         <button type="button" data-realism="global" title="全部可见弹药共享区间">全局映射</button>
       </div>
     </section>

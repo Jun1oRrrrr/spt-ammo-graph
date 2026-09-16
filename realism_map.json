@@ -276,7 +276,7 @@
       "name": "12/70 Piranha",
       "short": "Piranha",
       "caliber": "Caliber12g",
-      "group": "12/70",
+      "group": "12/70 single",
       "sourceName": "Piranha",
       "projectileCount": 10,
       "damage": 130,

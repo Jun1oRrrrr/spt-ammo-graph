@@ -68,9 +68,66 @@ function friendlyCaliber(caliber) {
     .replace(/(\d+)×(\d+)/, '$1×$2');
 }
 
+const GROUP_COLORS = new Map([
+  ['12/70', '#60a5fa'],
+  ['12/70 single', '#22d3ee'],
+  ['20/70', '#34d399'],
+  ['20/70 single', '#a3e635'],
+  ['23x75mm', '#4ade80'],
+  ['23x75mm single', '#2dd4bf'],
+]);
+const GROUP_LABELS = new Map([
+  ['12/70', '12/70 独头'],
+  ['12/70 single', '12/70 霰弹'],
+  ['20/70', '20/70 独头'],
+  ['20/70 single', '20/70 霰弹'],
+  ['23x75mm', '23x75 独头'],
+  ['23x75mm single', '23x75 霰弹'],
+]);
+const SPLIT_GROUPS = new Map([
+  ['Caliber12g', { slug: '12/70', shot: '12/70 single' }],
+  ['Caliber20g', { slug: '20/70', shot: '20/70 single' }],
+  ['Caliber23x75', { slug: '23x75mm', shot: '23x75mm single' }],
+]);
+const GROUP_ALIASES = new Map([
+  ['12/70 shot', '12/70 single'],
+  ['20/70 shot', '20/70 single'],
+  ['23x75mm shot', '23x75mm single'],
+]);
+
+function normalizeGroupName(group) {
+  return GROUP_ALIASES.get(group) || group;
+}
+
+function fallbackGroupForRow(row) {
+  const names = SPLIT_GROUPS.get(row.caliber);
+  if (!names) return row.caliber || 'Unknown';
+  const ammoType = String(row.ammoType || '').toLowerCase();
+  const isShot = ammoType === 'buckshot' || Number(row.projectileCount) > 1;
+  return isShot ? names.shot : names.slug;
+}
+
+function groupForRow(row) {
+  return normalizeGroupName(row.group || fallbackGroupForRow(row));
+}
+
+function colorForGroup(group, caliber) {
+  return GROUP_COLORS.get(group) || colorForCaliber(caliber || group);
+}
+
+function friendlyGroup(group) {
+  return GROUP_LABELS.get(group) || friendlyCaliber(group);
+}
+
+function rowGroupLabel(row) {
+  const caliber = friendlyCaliber(row.caliber);
+  const group = friendlyGroup(groupForRow(row));
+  return group === caliber ? caliber : `${caliber} · ${group}`;
+}
+
 let DATA = { rows: [], source: '' };
-let currentCalibers = new Set();
-let allCalibers = [];
+let currentGroups = new Set();
+let allGroups = [];
 let editedMap = new Map();
 let originalMap = new Map();
 let searchTerm = '';
@@ -254,24 +311,28 @@ async function loadOriginals(force = false) {
 
 function buildData() {
   if (!Array.isArray(DATA.rows)) return [];
-  const calibers = new Set(DATA.rows.map((r) => r.caliber).filter(Boolean));
-  allCalibers = [...calibers].sort((a, b) => friendlyCaliber(a).localeCompare(friendlyCaliber(b)));
+  const groupCalibers = new Map();
+  for (const row of DATA.rows) {
+    const group = groupForRow(row);
+    if (group) groupCalibers.set(group, row.caliber);
+  }
+  allGroups = [...groupCalibers.keys()].sort((a, b) => friendlyGroup(a).localeCompare(friendlyGroup(b)));
   colorScale = {};
-  allCalibers.forEach((c, i) => {
-    colorScale[c] = colorForCaliber(c);
+  allGroups.forEach((group) => {
+    colorScale[group] = colorForGroup(group, groupCalibers.get(group));
   });
-  if (currentCalibers.size === 0) {
-    currentCalibers = new Set(allCalibers);
+  if (currentGroups.size === 0) {
+    currentGroups = new Set(allGroups);
   } else {
     const next = new Set();
-    for (const c of currentCalibers) if (calibers.has(c)) next.add(c);
-    if (next.size === 0) next.add(allCalibers[0]);
-    currentCalibers = next;
+    for (const group of currentGroups) if (groupCalibers.has(group)) next.add(group);
+    if (next.size === 0) next.add(allGroups[0]);
+    currentGroups = next;
   }
 }
 
 function filteredRows() {
-  const rows = DATA.rows.filter((r) => currentCalibers.has(r.caliber));
+  const rows = DATA.rows.filter((r) => currentGroups.has(groupForRow(r)));
   const term = searchTerm.trim().toLowerCase();
   const shown = term
     ? rows.filter((r) => rowName(r).toLowerCase().includes(term) || r.tpl.toLowerCase().includes(term))
@@ -350,7 +411,7 @@ function niceSteps(range) {
 }
 
 function realismModeName(mode) {
-  const label = mode === 'caliber' ? '\u6309\u53e3\u5f84\u6620\u5c04' : mode === 'global' ? '\u5168\u5c40\u6620\u5c04' : '';
+  const label = mode === 'caliber' ? '\u6309\u5206\u7ec4\u6620\u5c04' : mode === 'global' ? '\u5168\u5c40\u6620\u5c04' : '';
   return label;
 }
 
@@ -373,7 +434,7 @@ function saveRealismMode() {
 
 function realismPoolRows() {
   // Keep ranges identical to the all-ammo mapping written into SPT,
-  // even when the UI is filtered down to only a few calibers.
+  // even when the UI is filtered down to only a few groups.
   return DATA.rows.filter((r) => realismByTpl.has(r.tpl));
 }
 
@@ -465,10 +526,10 @@ function realismLayer(shownRows) {
     targetDamage: damageRanges.targetDamage,
     targetPenetration: penetrationRanges.targetPenetration,
   };
-  const perCaliberRanges = new Map();
+  const perGroupRanges = new Map();
   if (mode === 'caliber') {
-    for (const caliber of new Set(pool.map((r) => r.caliber))) {
-      perCaliberRanges.set(caliber, realismRanges(pool.filter((r) => r.caliber === caliber)));
+    for (const group of new Set(pool.map(groupForRow))) {
+      perGroupRanges.set(group, realismRanges(pool.filter((r) => groupForRow(r) === group)));
     }
   }
   const points = [];
@@ -476,7 +537,7 @@ function realismLayer(shownRows) {
     const entry = realismByTpl.get(row.tpl);
     if (!entry) continue;
     const ranges = mode === 'caliber'
-      ? (perCaliberRanges.get(row.caliber) || globalRanges)
+      ? (perGroupRanges.get(groupForRow(row)) || globalRanges)
       : globalRanges;
     if (!ranges) continue;
     const target = realismTarget(row);
@@ -632,7 +693,7 @@ function drawChart() {
     const py = yScale(y);
     if (!Number.isFinite(px) || !Number.isFinite(py)) continue;
     const edited = !!edit;
-    const color = colorScale[r.caliber] || '#888';
+    const color = colorScale[groupForRow(r)] || '#888';
     const selected = r.tpl === selectedTpl;
     const radius = edited ? 6.5 : selected ? 7.5 : 5;
     if (edited) {
@@ -769,28 +830,28 @@ function editedName(tpl) {
 
 function updateLegend() {
   const legendRow = document.getElementById('legendRow');
-  const active = allCalibers.filter((c) => currentCalibers.has(c));
+  const active = allGroups.filter((group) => currentGroups.has(group));
   let html = active
-    .map((c) => {
-      const color = colorScale[c] || '#888';
-      return `<span class="legend-chip"><span class="dot" style="background:${color}"></span>${friendlyCaliber(c)}</span>`;
+    .map((group) => {
+      const color = colorScale[group] || '#888';
+      return `<span class="legend-chip"><span class="dot" style="background:${color}"></span>${friendlyGroup(group)}</span>`;
     })
     .join('');
   if (state.realismMode && state.realismMode !== 'off') {
     html += `<span class="legend-chip realism"><span class="realism-mark"></span>Realism · ${realismModeName(state.realismMode)}</span>`;
   }
-  legendRow.innerHTML = html || '<span class="muted">无口径显示</span>';
+  legendRow.innerHTML = html || '<span class="muted">无分组显示</span>';
 }
 
-function renderCaliberChips() {
+function renderGroupChips() {
   const list = document.getElementById('caliberList');
   const term = document.getElementById('caliberSearch').value.trim().toLowerCase();
-  const shown = allCalibers.filter((c) => friendlyCaliber(c).toLowerCase().includes(term));
+  const shown = allGroups.filter((group) => friendlyGroup(group).toLowerCase().includes(term));
   list.innerHTML = shown
-    .map((c) => `<span class="chip ${currentCalibers.has(c) ? 'on' : ''}" data-caliber="${c}"><span class="dot" style="background:${colorScale[c] || '#667'}"></span>${friendlyCaliber(c)}<span class="count">${DATA.rows.filter((r) => r.caliber === c).length}</span></span>`)
+    .map((group) => `<span class="chip ${currentGroups.has(group) ? 'on' : ''}" data-group="${group}"><span class="dot" style="background:${colorScale[group] || '#667'}"></span>${friendlyGroup(group)}<span class="count">${DATA.rows.filter((r) => groupForRow(r) === group).length}</span></span>`)
     .join('');
   const toggleBtn = document.getElementById('selectAllCalibersBtn');
-  const allOn = allCalibersSelected();
+  const allOn = allGroupsSelected();
   toggleBtn.classList.toggle('sel-active', allOn);
   toggleBtn.setAttribute('aria-pressed', String(allOn));
   toggleBtn.textContent = allOn ? '\u6e05\u7a7a' : '\u5168\u9009';
@@ -814,7 +875,7 @@ function renderList() {
     const d = effectiveDamage(r);
     const p = effectivePenetration(r);
     const edited = !!edit;
-    const color = colorScale[r.caliber] || '#888';
+    const color = colorScale[groupForRow(r)] || '#888';
     return `<div class="ammo-row ${r.tpl === selectedTpl ? 'selected' : ''} ${edited ? 'edited' : ''}" data-tpl="${r.tpl}">
       <span class="row-color" style="background:${color}"></span>
       <span class="row-name">${escapeHtml(r.short)}</span>
@@ -897,7 +958,7 @@ function renderPointPanel() {
   const d = effectiveDamage(row);
   const p = effectivePenetration(row);
   const editable = isEditable(row);
-  const color = colorScale[row.caliber] || '#888';
+  const color = colorScale[groupForRow(row)] || '#888';
   const orig = originalValuesFor(row);
   const origDamage = Number(orig.damagePerProjectile);
   const origPen = Number(orig.penetration);
@@ -920,7 +981,7 @@ function renderPointPanel() {
       </div>
       <button class="close-pp" type="button" title="取消选择">×</button>
     </div>
-    <div class="pp-meta">${escapeHtml(friendlyCaliber(row.caliber))} · ${escapeHtml(row.tpl)}</div>
+    <div class="pp-meta">${escapeHtml(rowGroupLabel(row))} · ${escapeHtml(row.tpl)}</div>
     <div class="pp-grid">
       <div class="pp-stat${edit ? ' edited' : ''}">
         <span>单发威力</span>
@@ -979,7 +1040,7 @@ function renderInspector() {
   const showOrig = !!edit || originalDiffers(row);
   body.innerHTML = `
     <h3>${escapeHtml(rowName(row))}</h3>
-    <div class="detail-meta">${escapeHtml(friendlyCaliber(row.caliber))} · ${row.tpl}</div>
+    <div class="detail-meta">${escapeHtml(rowGroupLabel(row))} · ${row.tpl}</div>
     <dl class="kv-table">
       <dt>总伤害</dt><dd><b>${Math.round(currentTotalDamage(row))}</b></dd>
       <dt>弹片数</dt><dd>${row.projectileCount}</dd>
@@ -1018,7 +1079,7 @@ function renderStatus() {
 }
 
 function renderAll() {
-  renderCaliberChips();
+  renderGroupChips();
   renderList();
   renderInspector();
   renderStatus();
@@ -1407,24 +1468,24 @@ function onSearchInput() {
 
 function selectVisible() {
   const rows = filteredRows();
-  currentCalibers = new Set(rows.map((r) => r.caliber));
+  currentGroups = new Set(rows.map(groupForRow));
   renderAll();
 }
 
 function selectAllCalibers() {
-  currentCalibers = allCalibersSelected() ? new Set() : new Set(allCalibers);
+  currentGroups = allGroupsSelected() ? new Set() : new Set(allGroups);
   renderAll();
 }
 
-function allCalibersSelected() {
-  return allCalibers.length > 0 && currentCalibers.size === allCalibers.length;
+function allGroupsSelected() {
+  return allGroups.length > 0 && currentGroups.size === allGroups.length;
 }
 
-function toggleCaliber(c) {
-  if (currentCalibers.has(c)) {
-    if (currentCalibers.size > 1) currentCalibers.delete(c);
+function toggleGroup(group) {
+  if (currentGroups.has(group)) {
+    if (currentGroups.size > 1) currentGroups.delete(group);
   } else {
-    currentCalibers.add(c);
+    currentGroups.add(group);
   }
   renderAll();
 }
@@ -1604,14 +1665,14 @@ function keyboardSelect(event) {
 
 function setupEventListeners() {
   document.getElementById('searchInput').addEventListener('input', onSearchInput);
-  document.getElementById('caliberSearch').addEventListener('input', renderCaliberChips);
+  document.getElementById('caliberSearch').addEventListener('input', renderGroupChips);
   document.getElementById('clearCaliberBtn').addEventListener('click', () => {
     document.getElementById('caliberSearch').value = '';
-    renderCaliberChips();
+    renderGroupChips();
   });
   document.getElementById('caliberList').addEventListener('click', (event) => {
     const chip = event.target.closest('.chip');
-    if (chip) toggleCaliber(chip.dataset.caliber);
+    if (chip) toggleGroup(chip.dataset.group);
   });
   document.getElementById('selectVisibleBtn').addEventListener('click', selectVisible);
   document.getElementById('selectAllCalibersBtn').addEventListener('click', selectAllCalibers);
@@ -1707,7 +1768,7 @@ function setupEventListeners() {
     searchTerm = '';
     selectedTpl = null;
     document.getElementById('searchInput').value = '';
-    currentCalibers = new Set(allCalibers);
+    currentGroups = new Set(allGroups);
     state.zoomLocked = false;
     renderAll();
   });
